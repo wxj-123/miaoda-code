@@ -1,0 +1,165 @@
+.page {
+    min-height: 100vh;
+    background: #f7f4ef;
+    padding-top: 20rpx;
+}
+
+.field {
+    background: #ffffff;
+    border-radius: 24rpx;
+    padding: 24rpx;
+    margin-bottom: 18rpx;
+}
+
+.title-input {
+    font-size: 32rpx;
+    font-weight: 600;
+}
+
+.content-input {
+    width: 100%;
+    min-height: 220rpx;
+    font-size: 28rpx;
+    line-height: 1.72;
+}
+
+.ph {
+    color: #9c958c;
+}
+
+.media-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16rpx;
+    margin-bottom: 18rpx;
+}
+
+.media-item {
+    position: relative;
+    width: 162rpx;
+    height: 162rpx;
+}
+
+.media-img {
+    width: 162rpx;
+    height: 162rpx;
+    border-radius: 18rpx;
+    background: #f5f0e9;
+}
+
+.media-del {
+    position: absolute;
+    right: -8rpx;
+    top: -8rpx;
+    width: 40rpx;
+    height: 40rpx;
+    border-radius: 50%;
+    background: rgba(35, 38, 43, 0.72);
+    color: #ffffff;
+    font-size: 28rpx;
+    line-height: 36rpx;
+    text-align: center;
+}
+
+.media-add {
+    width: 162rpx;
+    height: 162rpx;
+    border-radius: 18rpx;
+    border: 2rpx dashed #dcd5ce;
+    background: #fdfbf9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.media-add-ico {
+    font-size: 40rpx;
+    color: #c0b9af;
+    line-height: 1;
+}
+
+.media-add-text {
+    margin-top: 8rpx;
+    font-size: 22rpx;
+    color: #9c958c;
+}
+
+.video-item {
+    position: relative;
+    width: 300rpx;
+    height: 168rpx;
+}
+
+.video-box {
+    width: 300rpx;
+    height: 168rpx;
+    border-radius: 18rpx;
+    background: #000000;
+}
+
+.video-hint {
+    margin: -6rpx 0 18rpx;
+    font-size: 21rpx;
+    color: #9c958c;
+}
+
+.recipe-link {
+    display: flex;
+    align-items: center;
+    gap: 14rpx;
+    padding: 20rpx 24rpx;
+    background: #ffffff;
+    border-radius: 22rpx;
+    font-size: 26rpx;
+}
+
+.recipe-link-label {
+    padding: 3rpx 14rpx;
+    background: #fff1e8;
+    color: #ef4e19;
+    font-size: 21rpx;
+    border-radius: 999rpx;
+}
+
+.recipe-link-del {
+    color: #9c958c;
+    font-size: 23rpx;
+}
+
+.agree {
+    display: flex;
+    align-items: flex-start;
+    gap: 14rpx;
+    margin-top: 24rpx;
+    padding: 0 6rpx;
+}
+
+.checkbox {
+    width: 36rpx;
+    height: 36rpx;
+    margin-top: 4rpx;
+    border-radius: 10rpx;
+    border: 2rpx solid #d5cec7;
+    background: #ffffff;
+    color: #ffffff;
+    font-size: 24rpx;
+    line-height: 32rpx;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.checkbox-on {
+    background: #ff6b35;
+    border-color: #ff6b35;
+}
+
+.agree-text {
+    font-size: 23rpx;
+    color: #7c766e;
+    line-height: 1.6;
+}
+
+.btn-disabled {
+    opacity: 0.6;
+}

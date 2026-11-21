@@ -1,0 +1,44 @@
+<view class="page">
+    <view class="header">
+        <view class="header-glow"></view>
+        <view class="header-eyebrow">创作</view>
+        <view class="header-title">分享你的味道</view>
+        <view class="header-sub">投稿菜谱，或晒出今天的成品</view>
+    </view>
+
+    <view class="container">
+        <view class="login-hint" wx:if="{{checked && !user}}">
+            <text class="login-hint-text">登录后即可发布，内容会进「我的发布」</text>
+            <text class="login-hint-btn" bindtap="goLogin">去登录</text>
+        </view>
+
+        <view class="entry entry-recipe" hover-class="card-press" hover-stay-time="80" bindtap="goRecipe">
+            <view class="entry-icon">🍳</view>
+            <view class="flex1">
+                <view class="entry-title">投稿菜谱</view>
+                <view class="entry-desc">菜名、食材、步骤，写清楚就能帮到别人</view>
+            </view>
+            <view class="entry-arrow"></view>
+        </view>
+
+        <view class="entry entry-post" hover-class="card-press" hover-stay-time="80" bindtap="goPost">
+            <view class="entry-icon">📷</view>
+            <view class="flex1">
+                <view class="entry-title">发布帖子</view>
+                <view class="entry-desc">成品图、外卖实拍、探店心得都行</view>
+            </view>
+            <view class="entry-arrow"></view>
+        </view>
+
+        <view class="tip-card">
+            <view class="tip-title">发布前须知</view>
+            <view class="tip-item">内容会先经过机器与人工审核，通过后才对外展示</view>
+            <view class="tip-item">请使用自己拍摄或有权使用的图片，不要搬运他人作品</view>
+            <view class="tip-item">广告引流、二维码、联系方式类内容会被驳回</view>
+        </view>
+
+        <view class="mine-entry" hover-class="is-press" hover-stay-time="60" bindtap="goMine">
+            查看我的发布与草稿 ›
+        </view>
+    </view>
+</view>

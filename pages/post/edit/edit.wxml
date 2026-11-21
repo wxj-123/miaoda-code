@@ -1,0 +1,65 @@
+<view class="page page-with-bar">
+    <view class="container">
+
+        <view class="field">
+            <input
+                class="title-input"
+                value="{{title}}"
+                maxlength="40"
+                placeholder="起个标题，比如「第一次做宫保鸡丁」"
+                placeholder-class="ph"
+                bindinput="onTitleInput"
+            />
+        </view>
+
+        <view class="field">
+            <textarea
+                class="content-input"
+                value="{{content}}"
+                maxlength="1000"
+                auto-height
+                placeholder="说点什么：用了什么食材、哪一步翻了车、味道如何…"
+                placeholder-class="ph"
+                bindinput="onContentInput"
+            />
+        </view>
+
+        <view class="media-row">
+            <view class="video-item" wx:if="{{videoView}}">
+                <video class="video-box" src="{{videoView}}" controls object-fit="cover"></video>
+                <view class="media-del" bindtap="removeVideo">×</view>
+            </view>
+            <view class="media-item" wx:for="{{mediaView}}" wx:key="index">
+                <image class="media-img" src="{{item}}" mode="aspectFill" data-index="{{index}}" bindtap="previewImage" />
+                <view class="media-del" data-index="{{index}}" catchtap="removeImage">×</view>
+            </view>
+            <view class="media-add" bindtap="chooseImage" wx:if="{{media.length < 9}}">
+                <text class="media-add-ico">＋</text>
+                <text class="media-add-text">{{uploading ? '上传中' : '加图'}}</text>
+            </view>
+            <view class="media-add" bindtap="chooseVideo" wx:if="{{!video}}">
+                <text class="media-add-ico">▶</text>
+                <text class="media-add-text">{{uploadingVideo ? '上传中' : '加视频'}}</text>
+            </view>
+        </view>
+
+        <view class="video-hint" wx:if="{{!video}}">视频时长不超过 60 秒、大小不超过 20MB</view>
+
+        <view class="recipe-link" wx:if="{{recipeName}}">
+            <text class="recipe-link-label">关联菜谱</text>
+            <text class="flex1 ellipsis">{{recipeName}}</text>
+            <text class="recipe-link-del" bindtap="removeRecipe">取消关联</text>
+        </view>
+
+        <view class="agree" bindtap="toggleAgree">
+            <view class="checkbox {{agreed ? 'checkbox-on' : ''}}">{{agreed ? '✓' : ''}}</view>
+            <text class="agree-text">我确认素材为本人拍摄或已获授权，且不含广告引流、违规内容</text>
+        </view>
+    </view>
+
+    <view class="bottom-bar">
+        <view class="btn btn-primary {{submitting ? 'btn-disabled' : ''}}" bindtap="submit">
+            {{submitting ? '提交中…' : '提交审核'}}
+        </view>
+    </view>
+</view>

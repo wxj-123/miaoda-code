@@ -1,0 +1,84 @@
+.page {
+    min-height: 100vh;
+    background: #f7f4ef;
+    padding: 24rpx 0 60rpx;
+}
+
+.logo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40rpx 0 34rpx;
+}
+
+.logo {
+    width: 132rpx;
+    height: 132rpx;
+    border-radius: 36rpx;
+    background: linear-gradient(135deg, #ff8b54, #ef4e19);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64rpx;
+}
+
+.logo-title {
+    margin-top: 20rpx;
+    font-size: 36rpx;
+    font-weight: 800;
+}
+
+.logo-sub {
+    margin-top: 8rpx;
+    font-size: 23rpx;
+    color: #7c766e;
+    text-align: center;
+    padding: 0 60rpx;
+}
+
+.logo-version {
+    margin-top: 12rpx;
+    font-size: 21rpx;
+    color: #9c958c;
+}
+
+.block {
+    margin-bottom: 18rpx;
+}
+
+.block-title {
+    font-size: 28rpx;
+    font-weight: 600;
+}
+
+.block-text {
+    margin-top: 10rpx;
+    font-size: 25rpx;
+    line-height: 1.75;
+    color: #615d57;
+}
+
+.dev-card {
+    margin-top: 32rpx;
+    padding: 26rpx;
+    border: 2rpx dashed #dcd5ce;
+    border-radius: 24rpx;
+}
+
+.dev-title {
+    font-size: 25rpx;
+    font-weight: 600;
+    color: #7c766e;
+}
+
+.dev-text {
+    margin-top: 8rpx;
+    font-size: 22rpx;
+    line-height: 1.7;
+    color: #9c958c;
+}
+
+.dev-btn {
+    margin-top: 18rpx;
+    width: 240rpx;
+}

@@ -1,0 +1,33 @@
+<view class="page">
+    <view class="container">
+        <view class="logo-card">
+            <view class="logo">🍚</view>
+            <view class="logo-title">今天吃什么</view>
+            <view class="logo-sub">做饭也好，点外卖也好，先把「吃什么」解决掉</view>
+            <view class="logo-version">v{{version}}</view>
+        </view>
+
+        <view class="card block">
+            <view class="block-title">产品说明</view>
+            <view class="block-text">刷各地特色菜谱，照着在家做，或者复制菜名去外卖平台搜同款。也可以把成品发到社区，和同好交流。</view>
+        </view>
+
+        <view class="card block" bindtap="showAgreement">
+            <view class="row-between">
+                <text class="block-title">用户协议与隐私说明</text>
+                <text class="muted">›</text>
+            </view>
+        </view>
+
+        <view class="card block">
+            <view class="block-title">内容审核</view>
+            <view class="block-text">用户投稿的菜谱与帖子会先进入待审池，由审核员确认后展示。若发现违规内容，可以对内容或评论进行举报。</view>
+        </view>
+
+        <view class="dev-card">
+            <view class="dev-title">开发者工具</view>
+            <view class="dev-text">首次部署时可在这里绑定系统审核员（仅当系统内还没有审核员时生效）。正式运营前应移除该入口。</view>
+            <view class="btn btn-ghost btn-sm dev-btn" bindtap="claimAdmin">绑定审核员</view>
+        </view>
+    </view>
+</view>

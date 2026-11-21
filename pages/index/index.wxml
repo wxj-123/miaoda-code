@@ -1,0 +1,325 @@
+<view class="page">
+
+    <view class="hero">
+        <view class="hero-glow"></view>
+
+        <view class="hero-top">
+            <view class="flex1">
+                <view class="hero-eyebrow">{{greeting}}</view>
+                <view class="hero-title">今天吃什么</view>
+                <view class="hero-sub">别再纠结了，抽一个</view>
+            </view>
+            <view class="hero-badge">做饭 · 外卖</view>
+        </view>
+
+        <view class="search-box" hover-class="is-press" hover-stay-time="60" bindtap="goSearch">
+            <view class="search-ico"></view>
+            <text class="search-ph">搜菜名、食材、菜系</text>
+            <text class="search-go">搜索</text>
+        </view>
+    </view>
+
+    <view class="container">
+
+        <view class="roll-entry" hover-class="card-press" hover-stay-time="80" bindtap="openRoll">
+            <view class="roll-emoji">🎲</view>
+            <view class="roll-left">
+                <view class="roll-title">随机抽一道</view>
+                <view class="roll-desc">按口味、时段、是否外卖筛选</view>
+            </view>
+            <view class="roll-action">开始抽</view>
+        </view>
+
+        <view class="drink-entry" hover-class="card-press" hover-stay-time="80" bindtap="openDrink">
+            <view class="drink-emoji">🧋</view>
+            <view class="flex1">
+                <view class="drink-title">今日想喝</view>
+                <view class="drink-desc">50 家奶茶咖啡，摇一摇决定</view>
+            </view>
+            <view class="drink-action">摇一摇</view>
+        </view>
+
+        <view class="notice" wx:if="{{notice}}" hover-class="is-press" hover-stay-time="60" bindtap="showNotice">
+            <text class="notice-tag">公告</text>
+            <text class="notice-text ellipsis flex1">{{notice.title}}</text>
+            <view class="notice-arrow"></view>
+        </view>
+
+        <scroll-view class="cuisine-scroll" scroll-x enable-flex show-scrollbar="{{false}}">
+            <view
+                class="cuisine-item"
+                wx:for="{{cuisines}}"
+                wx:key="*this"
+                data-cuisine="{{item}}"
+                hover-class="chip-press"
+                hover-stay-time="60"
+                bindtap="goList"
+            >{{item}}</view>
+        </scroll-view>
+
+        <view class="quick-row">
+            <view
+                class="chip chip-quick"
+                wx:for="{{quickTags}}"
+                wx:key="label"
+                data-field="{{item.field}}"
+                data-label="{{item.label}}"
+                hover-class="is-press"
+                hover-stay-time="60"
+                bindtap="goList"
+            >{{item.label}}</view>
+        </view>
+
+        <!-- 骨架屏 -->
+        <block wx:if="{{loading}}">
+            <view class="sk-sec">
+                <view class="skeleton sk-title"></view>
+                <view class="sk-hscroll">
+                    <view class="skeleton sk-cover"></view>
+                    <view class="skeleton sk-cover"></view>
+                </view>
+            </view>
+            <view class="sk-sec">
+                <view class="skeleton sk-title"></view>
+                <view class="grid">
+                    <view class="grid-cell">
+                        <view class="skeleton sk-tile"></view>
+                    </view>
+                    <view class="grid-cell">
+                        <view class="skeleton sk-tile"></view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <view class="state" wx:elif="{{error}}">
+            <text class="state-emoji">🥲</text>
+            <text class="state-text">{{error}}</text>
+            <button class="btn btn-ghost btn-sm retry" hover-class="btn-press" bindtap="loadAll">重新加载</button>
+        </view>
+
+        <block wx:else>
+            <view class="section" wx:if="{{featured.length}}">
+                <view class="section-head">
+                    <text class="section-title">官方精选</text>
+                    <text class="section-more" bindtap="goAllRecipes">全部菜谱 ›</text>
+                </view>
+                <scroll-view class="feature-scroll" scroll-x enable-flex show-scrollbar="{{false}}">
+                    <view
+                        class="feature-item"
+                        wx:for="{{featured}}"
+                        wx:key="id"
+                        data-id="{{item.id}}"
+                        hover-class="card-press"
+                        hover-stay-time="80"
+                        bindtap="goDetail"
+                    >
+                        <view class="feature-media">
+                            <image wx:if="{{item.cover}}" class="feature-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+                            <view wx:else class="feature-cover feature-cover-empty"></view>
+                            <view class="feature-shade"></view>
+                            <text class="feature-flag">精选</text>
+                        </view>
+                        <view class="feature-body">
+                            <text class="feature-name ellipsis">{{item.name}}</text>
+                            <text class="feature-meta">{{item.cuisine}} · {{item.cost_time}} 分钟</text>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+
+            <!-- 网格骨架：首屏先把位置占住，避免数据到达时页面往下跳 -->
+            <block wx:if="{{gridLoading}}">
+                <view class="sk-sec">
+                    <view class="skeleton sk-title"></view>
+                    <view class="grid">
+                        <view class="grid-cell"><view class="skeleton sk-tile"></view></view>
+                        <view class="grid-cell"><view class="skeleton sk-tile"></view></view>
+                    </view>
+                </view>
+                <view class="sk-sec">
+                    <view class="skeleton sk-title"></view>
+                    <view class="grid">
+                        <view class="grid-cell"><view class="skeleton sk-tile"></view></view>
+                        <view class="grid-cell"><view class="skeleton sk-tile"></view></view>
+                    </view>
+                </view>
+            </block>
+
+            <view class="section" wx:if="{{recommend.length}}">
+                <view class="section-head">
+                    <text class="section-title">今日推荐</text>
+                    <text class="section-more" bindtap="goAllRecipes">更多 ›</text>
+                </view>
+                <view class="grid">
+                    <view class="grid-cell anim-in" wx:for="{{recommend}}" wx:key="id">
+                        <recipe-card item="{{item}}" mode="grid" />
+                    </view>
+                </view>
+            </view>
+
+            <view class="section" wx:if="{{hot.length}}">
+                <view class="section-head">
+                    <text class="section-title">新上桌</text>
+                    <text class="section-more" bindtap="goAllRecipes">更多 ›</text>
+                </view>
+                <view class="grid">
+                    <view class="grid-cell anim-in" wx:for="{{hot}}" wx:key="id">
+                        <recipe-card item="{{item}}" mode="grid" />
+                    </view>
+                </view>
+            </view>
+
+            <view class="foot-hint">菜谱由编辑部与用户共同贡献</view>
+        </block>
+    </view>
+
+    <!-- 随机抽菜弹层 -->
+    <view class="modal-mask" wx:if="{{rollVisible}}" catchtap="closeRoll">
+        <view class="modal" catchtap="noop">
+            <view class="modal-grip"></view>
+
+            <view class="modal-head">
+                <view>
+                    <text class="modal-title">抽一道</text>
+                    <text class="modal-sub">选好条件，锅铲替你决定</text>
+                </view>
+                <text class="modal-close" bindtap="closeRoll">×</text>
+            </view>
+
+            <scroll-view class="modal-scroll" scroll-y>
+                <view class="filter-line">
+                    <view class="chip chip-sm {{filters.takeaway ? 'chip-active' : ''}}" hover-class="is-press" data-group="takeaway" bindtap="setFilter">适合外卖</view>
+                    <view class="chip chip-sm {{filters.quick ? 'chip-active' : ''}}" hover-class="is-press" data-group="quick" bindtap="setFilter">快手菜</view>
+                </view>
+                <view class="filter-line">
+                    <view
+                        class="chip chip-sm {{filters.taste === item ? 'chip-active' : ''}}"
+                        wx:for="{{tastes}}"
+                        wx:key="*this"
+                        hover-class="is-press"
+                        data-group="taste"
+                        data-value="{{item}}"
+                        bindtap="setFilter"
+                    >{{item}}</view>
+                </view>
+                <view class="filter-line">
+                    <view
+                        class="chip chip-sm {{filters.meal === item ? 'chip-active' : ''}}"
+                        wx:for="{{meals}}"
+                        wx:key="*this"
+                        hover-class="is-press"
+                        data-group="meal"
+                        data-value="{{item}}"
+                        bindtap="setFilter"
+                    >{{item}}</view>
+                </view>
+                <view class="filter-line">
+                    <view
+                        class="chip chip-sm {{filters.difficulty === item ? 'chip-active' : ''}}"
+                        wx:for="{{difficulties}}"
+                        wx:key="*this"
+                        hover-class="is-press"
+                        data-group="difficulty"
+                        data-value="{{item}}"
+                        bindtap="setFilter"
+                    >{{item}}</view>
+                </view>
+
+                <view class="roll-body">
+                    <view class="roll-loading" wx:if="{{rollLoading}}">正在翻锅…</view>
+
+                    <view class="roll-empty" wx:elif="{{rollError}}">
+                        <text class="state-emoji">🍳</text>
+                        <text class="state-text">{{rollError}}</text>
+                    </view>
+
+                    <block wx:elif="{{rollResult}}">
+                        <view class="roll-media">
+                            <image wx:if="{{rollResult.cover}}" class="roll-cover" src="{{rollResult.cover}}" mode="aspectFill" />
+                            <view wx:else class="roll-cover roll-cover-empty"></view>
+                        </view>
+
+                        <view class="roll-name">{{rollResult.name}}</view>
+                        <view class="roll-meta">
+                            {{rollResult.cuisine}} · {{rollResult.taste}} · {{rollResult.difficulty}} · {{rollResult.cost_time}} 分钟
+                        </view>
+                        <view class="roll-summary" wx:if="{{rollResult.summary}}">{{rollResult.summary}}</view>
+                        <view class="roll-tags" wx:if="{{rollResult.tagText}}">
+                            <text class="tag">{{rollResult.tagText}}</text>
+                        </view>
+                        <view class="roll-material" wx:if="{{rollResult.materialText}}">
+                            <text class="roll-material-label">食材</text>
+                            <text class="roll-material-text">{{rollResult.materialText}}</text>
+                        </view>
+
+                        <view class="roll-actions">
+                            <view class="btn btn-plain btn-sm" hover-class="is-press" bindtap="roll">换一道</view>
+                            <view class="btn btn-ghost btn-sm" hover-class="is-press" bindtap="copyRollName">复制菜名</view>
+                            <view class="btn btn-primary btn-sm" hover-class="is-press" bindtap="viewRollDetail">就它了</view>
+                        </view>
+                    </block>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+
+    <!-- 今日想喝弹层 -->
+    <view class="modal-mask" wx:if="{{drinkVisible}}" catchtap="closeDrink">
+        <view class="modal drink-modal" catchtap="noop">
+            <view class="modal-grip"></view>
+
+            <view class="modal-head">
+                <view>
+                    <text class="modal-title">今天喝哪家</text>
+                    <text class="modal-sub">摇一摇手机，或者点下面的按钮</text>
+                </view>
+                <text class="modal-close" bindtap="closeDrink">×</text>
+            </view>
+
+            <view class="drink-kinds">
+                <view
+                    class="chip chip-sm {{drinkKind === item ? 'chip-active' : ''}}"
+                    wx:for="{{drinkKinds}}"
+                    wx:key="*this"
+                    data-kind="{{item}}"
+                    hover-class="is-press"
+                    hover-stay-time="60"
+                    bindtap="setDrinkKind"
+                >{{item}}</view>
+            </view>
+
+            <view class="reel">
+                <view class="reel-focus"></view>
+                <view class="reel-fade reel-fade-top"></view>
+                <view class="reel-fade reel-fade-bottom"></view>
+                <view
+                    class="reel-track {{drinkTransition ? 'reel-track-run' : ''}}"
+                    style="transform: translateY(-{{drinkOffset}}rpx)"
+                >
+                    <view class="reel-item" wx:for="{{drinkReel}}" wx:key="key">
+                        <text class="reel-name">{{item.name}}</text>
+                        <text class="reel-kind">{{item.kind}} · {{item.price}} 元</text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="drink-result" wx:if="{{drinkResult && !drinkAnimating}}">
+                <view class="drink-result-head">
+                    <text class="drink-brand">{{drinkResult.name}}</text>
+                    <text class="drink-tag">{{drinkResult.kind}}</text>
+                </view>
+                <view class="drink-star">招牌 · {{drinkResult.star}}</view>
+                <view class="drink-note">{{drinkResult.note}}</view>
+                <view class="drink-price">参考价 {{drinkResult.price}} 元 / 杯</view>
+                <view class="roll-actions">
+                    <view class="btn btn-plain btn-sm" hover-class="is-press" bindtap="rollDrink">再摇一次</view>
+                    <view class="btn btn-ghost btn-sm" hover-class="is-press" bindtap="copyDrinkName">复制品牌</view>
+                </view>
+            </view>
+
+            <view class="drink-rolling" wx:elif="{{drinkAnimating}}">正在摇…</view>
+            <view class="drink-rolling" wx:else>摇一摇手机，换一家</view>
+        </view>
+    </view>
+</view>

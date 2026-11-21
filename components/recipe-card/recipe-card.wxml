@@ -1,0 +1,32 @@
+<view class="rc rc-{{mode}}" hover-class="rc-press" hover-stay-time="80" bindtap="onTap">
+    <view class="rc-media">
+        <image wx:if="{{item.cover}}" class="rc-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+        <view wx:else class="rc-cover rc-cover-empty">
+            <text class="rc-empty-text">今天吃什么</text>
+        </view>
+
+        <view class="rc-shade" wx:if="{{mode === 'grid' && item.cover}}"></view>
+        <text class="rc-pill" wx:if="{{mode === 'grid' && item.cuisine}}">{{item.cuisine}}</text>
+    </view>
+
+    <view class="rc-body">
+        <view class="rc-name ellipsis-2">{{item.name}}</view>
+
+        <view class="rc-meta" wx:if="{{showMeta}}">
+            <text wx:if="{{item.difficulty}}">{{item.difficulty}}</text>
+            <text wx:if="{{item.difficulty && item.cost_time}}" class="rc-dot"></text>
+            <text wx:if="{{item.cost_time}}">{{item.cost_time}} 分钟</text>
+            <text wx:if="{{mode === 'row' && item.cuisine && !item.difficulty}}" class="rc-dot"></text>
+            <text wx:if="{{mode === 'row' && item.cuisine && !item.difficulty}}">{{item.cuisine}}</text>
+        </view>
+
+        <view class="rc-tags" wx:if="{{mode === 'row' && item.tagText}}">
+            <text class="tag">{{item.tagText}}</text>
+        </view>
+
+        <view class="rc-foot" wx:if="{{mode === 'row'}}">
+            <text class="rc-stat">收藏 {{collectText}}</text>
+            <text class="rc-stat">浏览 {{viewText}}</text>
+        </view>
+    </view>
+</view>

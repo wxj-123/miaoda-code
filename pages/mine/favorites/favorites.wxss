@@ -1,0 +1,62 @@
+.page {
+    min-height: 100vh;
+    background: #f7f4ef;
+    padding-top: 20rpx;
+}
+
+.item {
+    display: flex;
+    gap: 18rpx;
+    padding: 20rpx;
+    background: #ffffff;
+    border-radius: 24rpx;
+    margin-bottom: 16rpx;
+}
+
+.cover {
+    width: 180rpx;
+    height: 180rpx;
+    border-radius: 18rpx;
+    background: #f5f0e9;
+    flex-shrink: 0;
+}
+
+.cover-empty {
+    background: linear-gradient(135deg, #ffe3d2, #ffc8ab);
+}
+
+.body {
+    padding-top: 4rpx;
+    min-width: 0;
+}
+
+.title {
+    font-size: 29rpx;
+    font-weight: 600;
+}
+
+.meta {
+    margin-top: 8rpx;
+    display: flex;
+    align-items: center;
+    gap: 12rpx;
+}
+
+.sub {
+    margin-top: 10rpx;
+    font-size: 24rpx;
+    color: #7c766e;
+    line-height: 1.55;
+}
+
+.state {
+    padding: 140rpx 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.act {
+    margin-top: 26rpx;
+    width: 240rpx;
+}

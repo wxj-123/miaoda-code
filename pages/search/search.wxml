@@ -1,0 +1,93 @@
+<view class="page">
+    <view class="search-bar">
+        <view class="search-input-wrap">
+            <view class="search-ico"></view>
+            <input
+                class="search-input"
+                value="{{keyword}}"
+                focus
+                placeholder="菜名、食材、菜系"
+                placeholder-class="search-ph"
+                confirm-type="search"
+                bindinput="onInput"
+                bindconfirm="onConfirm"
+            />
+        </view>
+        <text class="search-action" hover-class="is-press" hover-stay-time="60" bindtap="onConfirm">搜索</text>
+    </view>
+
+    <view class="container">
+        <block wx:if="{{!searched}}">
+            <view class="block" wx:if="{{history.length}}">
+                <view class="block-head">
+                    <text class="block-title">搜索历史</text>
+                    <text class="block-action" hover-class="is-press" bindtap="clearHistory">清空</text>
+                </view>
+                <view class="word-row">
+                    <view class="chip" wx:for="{{history}}" wx:key="*this" data-word="{{item}}" hover-class="is-press" bindtap="tapWord">{{item}}</view>
+                </view>
+            </view>
+
+            <view class="block">
+                <view class="block-head">
+                    <text class="block-title">大家都在搜</text>
+                </view>
+                <view class="word-row">
+                    <view class="chip chip-hot" wx:for="{{hotWords}}" wx:key="*this" data-word="{{item}}" hover-class="is-press" bindtap="tapWord">{{item}}</view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:else>
+            <view class="seg">
+                <view class="seg-item {{mode === 'recipe' ? 'seg-on' : ''}}" data-mode="recipe" bindtap="switchMode">菜谱</view>
+                <view class="seg-item {{mode === 'post' ? 'seg-on' : ''}}" data-mode="post" bindtap="switchMode">帖子</view>
+            </view>
+
+            <view class="state" wx:if="{{loading}}">
+                <view class="loading-dots">
+                    <view class="dot"></view>
+                    <view class="dot"></view>
+                    <view class="dot"></view>
+                </view>
+            </view>
+
+            <block wx:elif="{{mode === 'recipe'}}">
+                <view class="row-card anim-in" wx:for="{{recipes}}" wx:key="id">
+                    <recipe-card item="{{item}}" mode="row" />
+                </view>
+                <view class="state" wx:if="{{!recipes.length}}">
+                    <text class="state-emoji">🔍</text>
+                    <text class="state-text">没搜到相关菜谱，换个说法试试</text>
+                </view>
+            </block>
+
+            <block wx:else>
+                <view
+                    class="post anim-in"
+                    wx:for="{{posts}}"
+                    wx:key="id"
+                    data-id="{{item.id}}"
+                    hover-class="card-press"
+                    hover-stay-time="80"
+                    bindtap="goPost"
+                >
+                    <view class="post-top">
+                        <view class="avatar avatar-sm">{{item.initial}}</view>
+                        <text class="post-author ellipsis">{{item.owner_name}}</text>
+                        <text class="post-time">{{item.timeText}}</text>
+                    </view>
+                    <view class="post-title">{{item.title}}</view>
+                    <view class="post-content ellipsis-2">{{item.content}}</view>
+                    <view class="post-media" wx:if="{{item.cover}}">
+                        <image class="post-cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+                    </view>
+                </view>
+                <view class="state" wx:if="{{!posts.length}}">
+                    <text class="state-emoji">🍜</text>
+                    <text class="state-text">没搜到相关帖子</text>
+                </view>
+            </block>
+        </block>
+    </view>
+</view>

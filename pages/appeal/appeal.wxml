@@ -1,0 +1,221 @@
+<view class="page page-with-bar">
+    <view class="state" wx:if="{{loading}}">
+        <view class="loading-dots">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+        </view>
+    </view>
+
+    <view class="state" wx:elif="{{error}}">
+        <text class="state-emoji">🔒</text>
+        <text class="state-text">{{error}}</text>
+    </view>
+
+    <block wx:else>
+        <view class="container">
+            <!-- 驳回说明 -->
+            <view class="hero {{pending ? 'hero-pending' : ''}}">
+                <view class="hero-tag">{{pending ? '申诉处理中' : '自动审核 · 已驳回'}}</view>
+                <view class="hero-title">{{pending ? '这条内容正在人工复核' : '这条内容没有通过审核'}}</view>
+                <view class="hero-reason">{{rejectReason || '内容不符合社区规范'}}</view>
+
+                <view class="rule-list" wx:if="{{verdict && verdict.reasons.length}}">
+                    <text class="rule" wx:for="{{verdict.reasons}}" wx:key="*this">{{item}}</text>
+                </view>
+
+                <view class="hero-meta">
+                    <text>剩余申诉机会 {{appealLeft}} / {{appealLimit}}</text>
+                    <text wx:if="{{verdict && verdict.score}}">风险分 {{verdict.score}}</text>
+                </view>
+            </view>
+
+            <!-- 帖子：标题 + 正文 + 图片 -->
+            <block wx:if="{{kind === 'post'}}">
+                <view class="block">
+                    <view class="block-label">标题</view>
+                    <input
+                        class="title-input"
+                        value="{{content.title}}"
+                        maxlength="40"
+                        placeholder="改个更准确的标题"
+                        placeholder-class="ph"
+                        disabled="{{!!pending}}"
+                        bindinput="onTitleInput"
+                    />
+                </view>
+
+                <view class="block">
+                    <view class="block-label">正文</view>
+                    <textarea
+                        class="body-input"
+                        value="{{content.content}}"
+                        maxlength="1000"
+                        auto-height
+                        placeholder="把违规的地方改掉再发"
+                        placeholder-class="ph"
+                        disabled="{{!!pending}}"
+                        bindinput="onBodyInput"
+                    />
+                    <view class="block-tip">删掉联系方式、广告导流、外链这些内容，通常就能过。</view>
+                </view>
+
+                <view class="block">
+                    <view class="block-label">图片</view>
+                    <view class="media-row">
+                        <view class="media-item" wx:for="{{mediaView}}" wx:key="index">
+                            <image
+                                class="media-img"
+                                src="{{item}}"
+                                mode="aspectFill"
+                                data-index="{{index}}"
+                                bindtap="previewImage"
+                            />
+                            <view
+                                class="media-del"
+                                wx:if="{{!pending}}"
+                                data-index="{{index}}"
+                                catchtap="removeImage"
+                            >×</view>
+                        </view>
+                        <view class="media-add" wx:if="{{!pending && (content.media.length || 0) < 9}}" bindtap="chooseImage">
+                            <text class="media-add-ico">＋</text>
+                            <text class="media-add-text">{{uploading ? '上传中' : '加图'}}</text>
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+            <!-- 菜谱：菜名 + 简介 + 食材 + 步骤 -->
+            <block wx:else>
+                <view class="block">
+                    <view class="block-label">菜名</view>
+                    <input
+                        class="title-input"
+                        value="{{content.name}}"
+                        maxlength="30"
+                        placeholder="菜名"
+                        placeholder-class="ph"
+                        disabled="{{!!pending}}"
+                        bindinput="onNameInput"
+                    />
+                </view>
+
+                <view class="block">
+                    <view class="block-label">简介</view>
+                    <textarea
+                        class="body-input"
+                        value="{{content.summary}}"
+                        maxlength="500"
+                        auto-height
+                        placeholder="一句话说清这道菜的关键"
+                        placeholder-class="ph"
+                        disabled="{{!!pending}}"
+                        bindinput="onSummaryInput"
+                    />
+                </view>
+
+                <view class="block">
+                    <view class="block-label">食材</view>
+                    <view class="line" wx:for="{{content.materials}}" wx:key="index">
+                        <input
+                            class="line-input flex1"
+                            value="{{item.name}}"
+                            placeholder="食材"
+                            placeholder-class="ph"
+                            disabled="{{!!pending}}"
+                            data-index="{{index}}"
+                            data-field="name"
+                            bindinput="onMaterialInput"
+                        />
+                        <input
+                            class="line-input line-dosage"
+                            value="{{item.dosage}}"
+                            placeholder="用量"
+                            placeholder-class="ph"
+                            disabled="{{!!pending}}"
+                            data-index="{{index}}"
+                            data-field="dosage"
+                            bindinput="onMaterialInput"
+                        />
+                        <text
+                            class="line-del"
+                            wx:if="{{!pending}}"
+                            data-index="{{index}}"
+                            bindtap="removeMaterial"
+                        >×</text>
+                    </view>
+                    <view class="line-add" wx:if="{{!pending}}" bindtap="addMaterial">＋ 添加食材</view>
+                </view>
+
+                <view class="block">
+                    <view class="block-label">步骤</view>
+                    <view class="line" wx:for="{{content.steps}}" wx:key="index">
+                        <text class="step-no">{{index + 1}}</text>
+                        <input
+                            class="line-input flex1"
+                            value="{{item.content}}"
+                            placeholder="这一步做了什么"
+                            placeholder-class="ph"
+                            disabled="{{!!pending}}"
+                            data-index="{{index}}"
+                            bindinput="onStepInput"
+                        />
+                        <text
+                            class="line-del"
+                            wx:if="{{!pending}}"
+                            data-index="{{index}}"
+                            bindtap="removeStep"
+                        >×</text>
+                    </view>
+                    <view class="line-add" wx:if="{{!pending}}" bindtap="addStep">＋ 添加步骤</view>
+                </view>
+            </block>
+
+            <!-- 申诉说明 -->
+            <view class="block">
+                <view class="block-label">申诉说明</view>
+                <textarea
+                    class="body-input reason-input"
+                    value="{{reason}}"
+                    maxlength="300"
+                    auto-height
+                    placeholder="哪里被误判了？比如「这是我自己拍的，没有广告」「联系方式是菜市场地址」"
+                    placeholder-class="ph"
+                    disabled="{{!!pending}}"
+                    bindinput="onReasonInput"
+                />
+                <view class="block-tip">{{reason.length}} / 300</view>
+            </view>
+
+            <!-- 历史申诉 -->
+            <view class="block history" wx:if="{{history.length}}">
+                <view class="block-label">申诉记录</view>
+                <view class="history-item" wx:for="{{history}}" wx:key="id">
+                    <view class="history-head">
+                        <text class="history-round">第 {{item.rounds}} 次</text>
+                        <text class="history-status {{item.status === 1 ? 'st-pass' : item.status === 2 ? 'st-reject' : 'st-wait'}}">{{item.status_text}}</text>
+                    </view>
+                    <view class="history-reason" wx:if="{{item.reason}}">说明：{{item.reason}}</view>
+                    <view class="history-reply" wx:if="{{item.reply}}">结果：{{item.reply}}</view>
+                </view>
+            </view>
+
+            <view class="limit-tip" wx:if="{{appealLeft <= 0}}">
+                这条内容已经申诉 {{appealLimit}} 次，不能再提交了。可以删掉重新发一条。
+            </view>
+        </view>
+
+        <view class="bottom-bar">
+            <block wx:if="{{!pending && appealLeft > 0}}">
+                <view class="btn btn-plain" data-mode="appeal" bindtap="submit" hover-class="btn-press">仅申诉</view>
+                <view class="btn btn-primary" data-mode="resubmit" bindtap="submit" hover-class="btn-press">
+                    {{submitting ? '提交中…' : '修改并重新发布'}}
+                </view>
+            </block>
+            <view wx:else class="btn btn-plain flex1" bindtap="submit">
+                {{pending ? '申诉处理中，请耐心等待' : '申诉次数已用完'}}
+            </view>
+        </view>
+    </block>
+</view>

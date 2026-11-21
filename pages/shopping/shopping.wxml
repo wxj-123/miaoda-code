@@ -1,0 +1,75 @@
+<view class="page">
+    <view class="header">
+        <view class="header-glow"></view>
+        <view class="header-eyebrow">清单</view>
+        <view class="header-title">买菜清单</view>
+        <view class="header-sub">{{signedIn ? '还剩 ' + pendingCount + ' 项没买' : '登录后清单会跟着账号同步'}}</view>
+    </view>
+
+    <view class="container">
+        <view class="guest-card" wx:if="{{!signedIn && !loading}}">
+            <view class="guest-emoji">🧺</view>
+            <view class="guest-title">登录后使用买菜清单</view>
+            <view class="guest-text">在菜谱详情页把食材一键加进来，去菜场照着买就行。清单会存进你的账号，换设备也在。</view>
+            <view class="btn btn-primary guest-btn" hover-class="btn-press" hover-stay-time="60" bindtap="goLogin">去登录</view>
+        </view>
+
+        <block wx:else>
+        <view class="add-card">
+            <input
+                class="add-input"
+                value="{{newName}}"
+                placeholder="加个食材，比如 生姜"
+                placeholder-class="ph"
+                bindinput="onNameInput"
+                bindconfirm="addItem"
+                confirm-type="done"
+            />
+            <input
+                class="add-dosage"
+                value="{{newDosage}}"
+                placeholder="用量"
+                placeholder-class="ph"
+                bindinput="onDosageInput"
+            />
+            <view class="add-btn" hover-class="is-press" hover-stay-time="60" bindtap="addItem">添加</view>
+        </view>
+
+        <view class="state" wx:if="{{loading}}">
+            <view class="loading-dots">
+                <view class="dot"></view>
+                <view class="dot"></view>
+                <view class="dot"></view>
+            </view>
+        </view>
+
+        <block wx:elif="{{items.length}}">
+            <view class="list-card">
+                <view class="item {{item.checked ? 'item-done' : ''}}" wx:for="{{items}}" wx:key="id">
+                    <view class="check {{item.checked ? 'check-on' : ''}}" data-index="{{index}}" bindtap="toggleItem">
+                        <text wx:if="{{item.checked}}" class="check-mark">✓</text>
+                    </view>
+                    <view class="flex1" data-index="{{index}}" bindtap="toggleItem">
+                        <view class="item-name ellipsis">{{item.name}}</view>
+                        <view class="item-sub" wx:if="{{item.dosage || item.sourceText}}">
+                            <text wx:if="{{item.dosage}}">{{item.dosage}}</text>
+                            <text wx:if="{{item.sourceText}}" class="item-source">来自 {{item.sourceText}}</text>
+                        </view>
+                    </view>
+                    <text class="del" data-index="{{index}}" hover-class="is-press" bindtap="removeItem">×</text>
+                </view>
+            </view>
+
+            <view class="ops">
+                <view class="btn btn-plain op" hover-class="btn-press" bindtap="copyList">复制清单</view>
+                <view class="btn btn-plain op" hover-class="btn-press" bindtap="clearAll">清空</view>
+            </view>
+        </block>
+
+        <view class="state" wx:else>
+            <text class="state-emoji">🧺</text>
+            <text class="state-text">清单是空的，去菜谱详情页一键加入食材</text>
+        </view>
+        </block>
+    </view>
+</view>

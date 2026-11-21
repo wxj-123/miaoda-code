@@ -1,0 +1,292 @@
+/* 管理后台设计令牌：与小程序保持同一套暖色语言 */
+:root {
+  --brand-50: #fff6f0;
+  --brand-100: #ffe9d9;
+  --brand-300: #ffb085;
+  --brand-500: #ff6b35;
+  --brand-600: #ef4e19;
+  --brand-700: #c43c10;
+  --ink-900: #1b1917;
+  --ink-700: #46433e;
+  --ink-600: #615d57;
+  --ink-400: #9c958c;
+  --ink-300: #c0b9af;
+  --line: #ede6dd;
+  --line-soft: #f5f0e9;
+  --bg: #f8f6f3;
+  --surface: #ffffff;
+  --surface-soft: #fbf9f6;
+  --danger: #d9483b;
+  --sh-1: 0 2px 8px rgba(70, 45, 25, 0.04);
+  --sh-2: 0 8px 26px rgba(70, 45, 25, 0.07);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink-900);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 统一滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ddd5cb;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ink-900);
+  letter-spacing: 0.3px;
+}
+
+.page-sub {
+  margin: 4px 0 0;
+  color: var(--ink-400);
+  font-size: 13px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: var(--sh-1);
+}
+
+/* 表格：暖灰表头 + 行 hover，长列表扫读更轻松 */
+.ant-table-thead > tr > th {
+  background: var(--surface-soft) !important;
+  color: var(--ink-600) !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+
+/* 长列表滚动时表头吸附在内容区顶部（顶栏始终在最上层） */
+.app-content .ant-table-thead > tr > th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--line-soft) !important;
+  color: var(--ink-700);
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #fff8f3 !important;
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+  background: transparent !important;
+}
+
+.ant-btn-primary {
+  box-shadow: 0 4px 12px rgba(239, 78, 25, 0.2);
+}
+
+.ant-pagination-item-active {
+  border-color: var(--brand-600) !important;
+}
+
+.cover-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--line-soft);
+}
+
+.cover-empty {
+  background: linear-gradient(135deg, #ffe3d2, #ffc8ab);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b26a45;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.muted {
+  color: var(--ink-400);
+  font-size: 12px;
+}
+
+.title-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title-main {
+  font-weight: 600;
+}
+
+.tag-line {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: var(--sh-1);
+}
+
+.stat-label {
+  color: var(--ink-400);
+  font-size: 13px;
+}
+
+.stat-value {
+  margin-top: 6px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.stat-foot {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--ink-300);
+}
+
+.stat-accent .stat-value {
+  color: var(--brand-600);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+}
+
+.bar-label {
+  width: 84px;
+  font-size: 13px;
+  color: var(--ink-600);
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bar-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--line-soft);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand-300), var(--brand-600));
+}
+
+.bar-value {
+  width: 44px;
+  text-align: right;
+  font-size: 12px;
+  color: var(--ink-400);
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.list-row:last-child {
+  border-bottom: none;
+}
+
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #fff5ed, #ffe7d7 55%, #f7f4ef);
+}
+
+.login-card {
+  width: 380px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 34px 32px 28px;
+  box-shadow: 0 18px 50px rgba(190, 100, 50, 0.12);
+}
+
+.login-brand {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.login-sub {
+  margin: 6px 0 24px;
+  color: var(--ink-400);
+  font-size: 13px;
+}
+
+.login-tip {
+  margin-top: 18px;
+  padding: 10px 12px;
+  background: var(--surface-soft);
+  border-radius: 8px;
+  color: var(--ink-400);
+  font-size: 12px;
+  line-height: 1.7;
+}

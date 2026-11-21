@@ -1,0 +1,160 @@
+<view class="page page-with-bar">
+    <view class="container">
+
+        <view class="cover-box" bindtap="chooseCover">
+            <image wx:if="{{coverView}}" class="cover-img" src="{{coverView}}" mode="aspectFill" />
+            <view wx:else class="cover-empty">
+                <text class="cover-ico">＋</text>
+                <text class="cover-text">{{uploading ? '上传中…' : '上传成品图'}}</text>
+            </view>
+            <view wx:if="{{coverView}}" class="cover-del" catchtap="removeCover">×</view>
+        </view>
+
+        <view class="card form-card">
+            <view class="form-row">
+                <text class="label">菜名</text>
+                <input
+                    class="input flex1"
+                    value="{{name}}"
+                    maxlength="30"
+                    placeholder="比如：宫保鸡丁"
+                    placeholder-class="ph"
+                    bindinput="onNameInput"
+                />
+            </view>
+
+            <view class="form-row">
+                <text class="label">菜系</text>
+                <picker class="flex1" mode="selector" range="{{cuisines}}" value="{{cuisineIndex}}" bindchange="onCuisineChange">
+                    <view class="picker {{cuisineIndex < 0 ? 'ph' : ''}}">{{cuisineIndex >= 0 ? cuisines[cuisineIndex] : '请选择菜系'}}</view>
+                </picker>
+            </view>
+
+            <view class="form-row">
+                <text class="label">地区</text>
+                <input
+                    class="input flex1"
+                    value="{{region}}"
+                    maxlength="20"
+                    placeholder="比如：四川"
+                    placeholder-class="ph"
+                    bindinput="onRegionInput"
+                />
+            </view>
+
+            <view class="form-row">
+                <text class="label">口味</text>
+                <picker class="flex1" mode="selector" range="{{tastes}}" value="{{tasteIndex}}" bindchange="onTasteChange">
+                    <view class="picker">{{tastes[tasteIndex]}}</view>
+                </picker>
+            </view>
+
+            <view class="form-row">
+                <text class="label">难度</text>
+                <picker class="flex1" mode="selector" range="{{difficulties}}" value="{{difficultyIndex}}" bindchange="onDifficultyChange">
+                    <view class="picker">{{difficulties[difficultyIndex]}}</view>
+                </picker>
+            </view>
+
+            <view class="form-row">
+                <text class="label">时段</text>
+                <picker class="flex1" mode="selector" range="{{meals}}" value="{{mealIndex}}" bindchange="onMealChange">
+                    <view class="picker">{{meals[mealIndex]}}</view>
+                </picker>
+            </view>
+
+            <view class="form-row">
+                <text class="label">耗时</text>
+                <input class="input flex1" type="number" value="{{costTime}}" placeholder="分钟" bindinput="onCostInput" />
+                <text class="unit">分钟</text>
+            </view>
+
+            <view class="form-row form-row-column">
+                <text class="label">一句话简介</text>
+                <textarea
+                    class="textarea"
+                    value="{{summary}}"
+                    maxlength="80"
+                    auto-height
+                    placeholder="这道菜最打动人的地方（选填）"
+                    placeholder-class="ph"
+                    bindinput="onSummaryInput"
+                />
+            </view>
+        </view>
+
+        <view class="card form-card">
+            <view class="label block-label">标签（可多选）</view>
+            <view class="tag-row">
+                <view
+                    class="chip chip-sm {{item.checked ? 'chip-active' : ''}}"
+                    wx:for="{{tagList}}"
+                    wx:key="label"
+                    data-tag="{{item.label}}"
+                    bindtap="toggleTag"
+                >{{item.label}}</view>
+            </view>
+        </view>
+
+        <view class="card form-card">
+            <view class="section-head">
+                <text class="section-title">食材</text>
+                <text class="add-link" bindtap="addMaterial">＋ 加一项</text>
+            </view>
+            <view class="material-row" wx:for="{{materials}}" wx:key="index">
+                <input
+                    class="input material-name"
+                    value="{{item.name}}"
+                    placeholder="食材名"
+                    placeholder-class="ph"
+                    data-index="{{index}}"
+                    data-field="name"
+                    bindinput="onMaterialInput"
+                />
+                <input
+                    class="input material-dosage"
+                    value="{{item.dosage}}"
+                    placeholder="用量"
+                    placeholder-class="ph"
+                    data-index="{{index}}"
+                    data-field="dosage"
+                    bindinput="onMaterialInput"
+                />
+                <text class="row-del" data-index="{{index}}" bindtap="removeMaterial">×</text>
+            </view>
+        </view>
+
+        <view class="card form-card">
+            <view class="section-head">
+                <text class="section-title">做法步骤</text>
+                <text class="add-link" bindtap="addStep">＋ 加一步</text>
+            </view>
+            <view class="step-row" wx:for="{{steps}}" wx:key="index">
+                <text class="step-no">{{index + 1}}</text>
+                <textarea
+                    class="textarea step-text"
+                    value="{{item.content}}"
+                    auto-height
+                    maxlength="300"
+                    placeholder="这一步怎么操作"
+                    placeholder-class="ph"
+                    data-index="{{index}}"
+                    bindinput="onStepInput"
+                />
+                <text class="row-del" data-index="{{index}}" bindtap="removeStep">×</text>
+            </view>
+        </view>
+
+        <view class="agree" bindtap="toggleAgree">
+            <view class="checkbox {{agreed ? 'checkbox-on' : ''}}">{{agreed ? '✓' : ''}}</view>
+            <text class="agree-text">我确认菜谱与图片为本人原创或已获授权，不含广告引流与违规内容</text>
+        </view>
+    </view>
+
+    <view class="bottom-bar">
+        <view class="btn btn-plain draft-btn" bindtap="saveDraft">存草稿</view>
+        <view class="btn btn-primary {{submitting ? 'btn-disabled' : ''}}" bindtap="submitReview">
+            {{submitting ? '提交中…' : '提交审核'}}
+        </view>
+    </view>
+</view>

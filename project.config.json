@@ -1,0 +1,77 @@
+{
+  "description": "今天吃什么 - 美食菜谱与社区小程序",
+  "packOptions": {
+    "ignore": [
+      {
+        "value": ".workbuddy",
+        "type": "folder"
+      },
+      {
+        "value": "node_modules",
+        "type": "folder"
+      },
+      {
+        "value": ".git",
+        "type": "folder"
+      },
+      {
+        "value": "package-lock.json",
+        "type": "file"
+      },
+      {
+        "value": "manifest.json",
+        "type": "file"
+      },
+      {
+        "value": "tools",
+        "type": "folder"
+      },
+      {
+        "value": ".venv",
+        "type": "folder"
+      },
+      {
+        "value": "__pycache__",
+        "type": "folder"
+      },
+      {
+        "value": "uploads",
+        "type": "folder"
+      }
+    ],
+    "include": []
+  },
+  "setting": {
+    "bundle": false,
+    "es6": true,
+    "minified": true,
+    "postcss": true,
+    "urlCheck": false,
+    "nodeModules": true,
+    "packNpmManually": false,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "enhance": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "compileType": "miniprogram",
+  "appid": "wxc7984aea9724fd5b",
+  "projectname": "eat-what-miniprogram",
+  "miniprogramRoot": "./",
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {}
+}

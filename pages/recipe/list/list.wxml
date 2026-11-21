@@ -1,0 +1,123 @@
+<view class="page">
+
+    <view class="topbar">
+        <view class="sort-row">
+            <view class="sort {{sort === item.key ? 'sort-active' : ''}}"
+                  wx:for="{{sorts}}"
+                  wx:key="key"
+                  data-sort="{{item.key}}"
+                  hover-class="is-press"
+                  hover-stay-time="60"
+                  bindtap="switchSort"
+            >{{item.label}}</view>
+            <view class="filter-btn {{activeCount > 0 ? 'filter-btn-on' : ''}}" hover-class="is-press" hover-stay-time="60" bindtap="toggleFilter">
+                筛选<text wx:if="{{activeCount > 0}}" class="filter-count">{{activeCount}}</text>
+            </view>
+        </view>
+
+        <view class="filter-panel" wx:if="{{filterVisible}}">
+            <view class="filter-group">
+                <text class="filter-title">菜系</text>
+                <view class="filter-chips">
+                    <view
+                        class="chip chip-sm {{filters.cuisine === item ? 'chip-active' : ''}}"
+                        wx:for="{{cuisines}}"
+                        wx:key="*this"
+                        data-group="cuisine"
+                        data-value="{{item}}"
+                        hover-class="is-press"
+                        bindtap="setFilter"
+                    >{{item}}</view>
+                </view>
+            </view>
+            <view class="filter-group">
+                <text class="filter-title">口味</text>
+                <view class="filter-chips">
+                    <view
+                        class="chip chip-sm {{filters.taste === item ? 'chip-active' : ''}}"
+                        wx:for="{{tastes}}"
+                        wx:key="*this"
+                        data-group="taste"
+                        data-value="{{item}}"
+                        hover-class="is-press"
+                        bindtap="setFilter"
+                    >{{item}}</view>
+                </view>
+            </view>
+            <view class="filter-group">
+                <text class="filter-title">时段</text>
+                <view class="filter-chips">
+                    <view
+                        class="chip chip-sm {{filters.meal === item ? 'chip-active' : ''}}"
+                        wx:for="{{meals}}"
+                        wx:key="*this"
+                        data-group="meal"
+                        data-value="{{item}}"
+                        hover-class="is-press"
+                        bindtap="setFilter"
+                    >{{item}}</view>
+                </view>
+            </view>
+            <view class="filter-group">
+                <text class="filter-title">难度</text>
+                <view class="filter-chips">
+                    <view
+                        class="chip chip-sm {{filters.difficulty === item ? 'chip-active' : ''}}"
+                        wx:for="{{difficulties}}"
+                        wx:key="*this"
+                        data-group="difficulty"
+                        data-value="{{item}}"
+                        hover-class="is-press"
+                        bindtap="setFilter"
+                    >{{item}}</view>
+                </view>
+            </view>
+            <view class="filter-group">
+                <text class="filter-title">其他</text>
+                <view class="filter-chips">
+                    <view class="chip chip-sm {{filters.takeaway ? 'chip-active' : ''}}" data-group="takeaway" hover-class="is-press" bindtap="setFilter">适合外卖</view>
+                    <view class="chip chip-sm {{filters.quick ? 'chip-active' : ''}}" data-group="quick" hover-class="is-press" bindtap="setFilter">快手菜</view>
+                    <view class="chip chip-sm {{filters.maxTime === 30 ? 'chip-active' : ''}}" data-group="maxTime" data-value="30" hover-class="is-press" bindtap="setFilter">30 分钟内</view>
+                    <view class="chip chip-sm {{filters.maxTime === 60 ? 'chip-active' : ''}}" data-group="maxTime" data-value="60" hover-class="is-press" bindtap="setFilter">1 小时内</view>
+                </view>
+            </view>
+            <view class="filter-reset" hover-class="is-press" bindtap="resetFilter">重置筛选</view>
+        </view>
+    </view>
+
+    <view class="container list">
+
+        <block wx:if="{{loading}}">
+            <view class="skeleton-card" wx:for="{{[1, 2, 3]}}" wx:key="*this">
+                <view class="sk-row">
+                    <view class="skeleton sk-thumb"></view>
+                    <view class="flex1">
+                        <view class="skeleton sk-line"></view>
+                        <view class="skeleton sk-line sk-line-short"></view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <view class="state" wx:elif="{{error}}">
+            <text class="state-emoji">🥲</text>
+            <text class="state-text">{{error}}</text>
+            <button class="btn btn-ghost btn-sm retry" hover-class="btn-press" bindtap="reload">重新加载</button>
+        </view>
+
+        <block wx:elif="{{list.length}}">
+            <view class="row-card anim-in" wx:for="{{list}}" wx:key="id">
+                <recipe-card item="{{item}}" mode="row" />
+            </view>
+
+            <view class="load-more" wx:if="{{loadingMore}}">正在加载…</view>
+            <view class="load-more" wx:elif="{{!hasMore}}">— 到底了 —</view>
+        </block>
+
+        <view class="state" wx:else>
+            <text class="state-emoji">🍽️</text>
+            <text class="state-text">这个条件下还没有菜谱</text>
+            <button class="btn btn-primary btn-sm retry" hover-class="btn-press" bindtap="goRoll">去抽一道</button>
+        </view>
+    </view>
+</view>

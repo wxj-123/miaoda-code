@@ -1,0 +1,63 @@
+// 今日想喝 · 品牌池
+// 纯本地数据，不依赖后端。price 是国内常见单杯区间，仅作参考，不代表实时售价。
+// kind 用于筛选：奶茶 / 柠檬茶 / 咖啡。
+
+const BRANDS = [
+    // ---------- 茶饮 ----------
+    { name: '喜茶', kind: '奶茶', star: '多肉葡萄', price: '15-29', note: '果茶起家，芝士奶盖最经典' },
+    { name: '奈雪的茶', kind: '奶茶', star: '霸气芝士草莓', price: '19-32', note: '茶＋软欧包，一杯能顶一顿' },
+    { name: '蜜雪冰城', kind: '奶茶', star: '冰鲜柠檬水', price: '4-12', note: '价格屠夫，学生党救星' },
+    { name: '霸王茶姬', kind: '奶茶', star: '伯牙绝弦', price: '15-22', note: '原叶鲜奶茶，喝完不齁' },
+    { name: '古茗', kind: '奶茶', star: '超A芝士葡萄', price: '12-22', note: '下沉市场之王，果茶扎实' },
+    { name: '沪上阿姨', kind: '奶茶', star: '血糯米奶茶', price: '12-22', note: '五谷打底，适合当早饭' },
+    { name: '茶百道', kind: '奶茶', star: '杨枝甘露', price: '13-24', note: '芒果系做得稳' },
+    { name: '书亦烧仙草', kind: '奶茶', star: '烧仙草奶茶', price: '12-20', note: '半杯都是料' },
+    { name: 'CoCo都可', kind: '奶茶', star: '珍珠奶茶', price: '10-18', note: '老牌连锁，珍珠稳定' },
+    { name: '1点点', kind: '奶茶', star: '四季奶青', price: '10-18', note: '免费加料是真香' },
+    { name: '益禾堂', kind: '奶茶', star: '烤奶', price: '8-15', note: '校门口常驻，性价比高' },
+    { name: '茶颜悦色', kind: '奶茶', star: '幽兰拿铁', price: '16-24', note: '长沙限定，杯杯现做' },
+    { name: '7分甜', kind: '奶茶', star: '杨枝甘露', price: '14-22', note: '甜度克制，果肉给得实在' },
+    { name: '茉莉奶白', kind: '奶茶', star: '茉莉奶白', price: '14-22', note: '花香明显，不容易踩雷' },
+    { name: '阿嬷手作', kind: '奶茶', star: '黑糖珍珠鲜奶', price: '20-30', note: '现煮珍珠，排队是常态' },
+    { name: '茶理宜世', kind: '奶茶', star: '翠枝茉莉', price: '15-24', note: '广式茶底，清爽挂' },
+    { name: '甜啦啦', kind: '奶茶', star: '一桶水果茶', price: '8-16', note: '桶装果茶，量大管饱' },
+    { name: '快乐柠檬', kind: '奶茶', star: '蛋糕奶茶', price: '10-18', note: '咸甜口的蛋糕酱很上头' },
+    { name: '一芳', kind: '奶茶', star: '一芳水果茶', price: '12-20', note: '古早味水果茶' },
+    { name: '黑泷堂', kind: '奶茶', star: '芋圆奶茶', price: '10-18', note: '芋圆现煮，口感扎实' },
+    { name: '大卡司', kind: '奶茶', star: '珍珠奶茶', price: '8-16', note: '老牌子，味道没变' },
+    { name: '兰芳园', kind: '奶茶', star: '丝袜奶茶', price: '12-20', note: '港式茶走，茶味够重' },
+    { name: '阿水大杯茶', kind: '奶茶', star: '原叶奶茶', price: '8-15', note: '山东人的青春' },
+    { name: '桂桂茶', kind: '奶茶', star: '桂花酒酿奶茶', price: '12-20', note: '桂花香很足' },
+    { name: '茶话弄', kind: '奶茶', star: '桂花引', price: '14-22', note: '新中式，茶底清透' },
+    { name: '眷茶', kind: '奶茶', star: '山茶花乌龙', price: '13-21', note: '中原口味，甜度偏低' },
+    { name: '椰不二', kind: '奶茶', star: '生椰拿铁', price: '12-20', note: '椰乳底，咖啡因友好' },
+
+    // ---------- 柠檬茶 ----------
+    { name: 'LINLEE林里', kind: '柠檬茶', star: '鸭屎香柠檬茶', price: '12-20', note: '送小黄鸭，解腻神器' },
+    { name: '柠季', kind: '柠檬茶', star: '手打柠檬茶', price: '10-18', note: '捶出来的香气' },
+    { name: '挞柠', kind: '柠檬茶', star: '鸭屎香柠檬茶', price: '12-20', note: '茶底浓，冰块多' },
+    { name: '丘大叔', kind: '柠檬茶', star: '鸭屎香柠檬茶', price: '12-22', note: '柠檬茶专门店' },
+    { name: '茶救星球', kind: '柠檬茶', star: '苦瓜柠檬茶', price: '14-22', note: '下火，口味猎奇但好喝' },
+    { name: '林香柠', kind: '柠檬茶', star: '鸭屎香柠檬茶', price: '12-20', note: '夏天首选' },
+
+    // ---------- 咖啡 ----------
+    { name: '瑞幸咖啡', kind: '咖啡', star: '生椰拿铁', price: '12-22', note: '券后价才是真价' },
+    { name: '星巴克', kind: '咖啡', star: '焦糖玛奇朵', price: '28-42', note: '座位和插座比咖啡更值' },
+    { name: '库迪咖啡', kind: '咖啡', star: '椰云拿铁', price: '9-18', note: '常年促销，便宜量大' },
+    { name: 'Manner', kind: '咖啡', star: '澳白', price: '15-25', note: '自带杯减 5 块' },
+    { name: 'M Stand', kind: '咖啡', star: '燕麦拿铁', price: '25-38', note: '门店好看，拍照出片' },
+    { name: 'Tims天好咖啡', kind: '咖啡', star: '拿铁', price: '15-28', note: '贝果＋咖啡的组合' },
+    { name: '幸运咖', kind: '咖啡', star: '生椰拿铁', price: '6-15', note: '蜜雪系的咖啡，便宜到离谱' },
+    { name: 'Seesaw', kind: '咖啡', star: '栀子花梨香拿铁', price: '25-38', note: '特调玩得花' },
+    { name: "Peet's皮爷", kind: '咖啡', star: '小拿铁', price: '26-40', note: '深烘豆，口味偏重' },
+    { name: '挪瓦咖啡', kind: '咖啡', star: '生椰拿铁', price: '12-22', note: '外卖折扣多' },
+    { name: 'Costa', kind: '咖啡', star: '拿铁', price: '25-38', note: '英式连锁，门店安静' },
+    { name: '太平洋咖啡', kind: '咖啡', star: '拿铁', price: '26-38', note: '老牌港资，适合坐一下午' },
+    { name: '代数学家', kind: '咖啡', star: '拿铁', price: '18-30', note: '精品连锁，豆子讲究' },
+    { name: '% Arabica', kind: '咖啡', star: '西班牙拿铁', price: '30-45', note: '拉花好看，价格也好看' },
+    { name: 'Blue Bottle蓝瓶', kind: '咖啡', star: '手冲单品', price: '35-50', note: '门店少，遇到就喝' },
+    { name: '麦咖啡', kind: '咖啡', star: '拿铁', price: '10-20', note: '早饭顺手带一杯' },
+    { name: 'KCOFFEE', kind: '咖啡', star: '拿铁', price: '8-18', note: '肯德基里的平价选项' },
+];
+
+module.exports = { BRANDS };

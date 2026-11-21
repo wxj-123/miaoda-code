@@ -1,0 +1,388 @@
+/* ---------- 封面 ---------- */
+
+.cover-wrap {
+    position: relative;
+    line-height: 0;
+}
+
+.cover {
+    width: 100%;
+    height: 460rpx;
+    background: var(--line-soft);
+}
+
+.cover-empty {
+    background: linear-gradient(135deg, #ffe3d2, #ffc8ab);
+}
+
+.cover-shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 180rpx;
+    background: linear-gradient(to top, rgba(30, 22, 17, 0.34), rgba(30, 22, 17, 0));
+    pointer-events: none;
+}
+
+.body {
+    margin-top: -54rpx;
+    position: relative;
+    padding-bottom: 20rpx;
+}
+
+/* ---------- 头部卡片 ---------- */
+
+.head-card {
+    background: var(--surface);
+    box-shadow: var(--sh-3);
+}
+
+.name {
+    font-size: 44rpx;
+    font-weight: 800;
+    letter-spacing: 1rpx;
+    line-height: 1.3;
+    color: var(--ink-900);
+}
+
+.meta-row {
+    margin-top: 16rpx;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8rpx;
+}
+
+.summary {
+    margin-top: 20rpx;
+    font-size: var(--fs-base);
+    line-height: 1.7;
+    color: var(--ink-600);
+}
+
+.author-row {
+    margin-top: 24rpx;
+    padding-top: 22rpx;
+    border-top: 2rpx solid var(--line-soft);
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-size: 26rpx;
+    font-weight: 600;
+    color: var(--ink-800);
+}
+
+.author-sub {
+    margin-top: 2rpx;
+    font-size: 21rpx;
+    color: var(--ink-400);
+}
+
+.follow-btn {
+    width: 150rpx;
+    flex-shrink: 0;
+}
+
+/* ---------- 快捷操作 ---------- */
+
+.quick-actions {
+    margin-top: 22rpx;
+    display: flex;
+    align-items: center;
+    height: 76rpx;
+    background: var(--surface-soft);
+    border-radius: var(--r-md);
+}
+
+.quick {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 23rpx;
+    color: var(--brand-600);
+    font-weight: 500;
+}
+
+.quick-line {
+    width: 2rpx;
+    height: 26rpx;
+    background: var(--line);
+}
+
+/* ---------- 食材 ---------- */
+
+.material {
+    display: flex;
+    align-items: center;
+    gap: 14rpx;
+    padding: 17rpx 0;
+    border-bottom: 2rpx solid var(--line-soft);
+}
+
+.material:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.material-dot {
+    width: 8rpx;
+    height: 8rpx;
+    border-radius: 50%;
+    background: var(--brand-200);
+    flex-shrink: 0;
+}
+
+.material-name {
+    font-size: var(--fs-base);
+    color: var(--ink-800);
+}
+
+.material-dosage {
+    flex-shrink: 0;
+    font-size: 23rpx;
+    color: var(--ink-400);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 步骤时间轴 ---------- */
+
+.step {
+    display: flex;
+    gap: 20rpx;
+}
+
+.step-rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.step-index {
+    width: 44rpx;
+    height: 44rpx;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-400), var(--brand-600));
+    color: #ffffff;
+    font-size: 22rpx;
+    font-weight: 700;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4rpx 10rpx rgba(239, 78, 25, 0.22);
+}
+
+.step-line {
+    flex: 1;
+    width: 2rpx;
+    margin: 8rpx 0 4rpx;
+    background: var(--line);
+}
+
+.step-body {
+    flex: 1;
+    min-width: 0;
+    padding-bottom: 30rpx;
+}
+
+.step-text {
+    display: block;
+    font-size: var(--fs-base);
+    line-height: 1.75;
+    color: var(--ink-700);
+    padding-top: 4rpx;
+}
+
+.step-image {
+    width: 100%;
+    margin-top: 14rpx;
+    border-radius: var(--r-sm);
+}
+
+/* ---------- 评论 ---------- */
+
+.comment-empty {
+    padding: 36rpx 0 24rpx;
+    text-align: center;
+    font-size: 24rpx;
+    color: var(--ink-300);
+}
+
+.comment {
+    display: flex;
+    gap: 16rpx;
+    padding: 20rpx 0;
+    border-bottom: 2rpx solid var(--line-soft);
+}
+
+.comment:last-child {
+    border-bottom: none;
+}
+
+.comment-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.comment-top {
+    display: flex;
+    align-items: baseline;
+    gap: 12rpx;
+}
+
+.comment-name {
+    font-size: 24rpx;
+    font-weight: 600;
+    color: var(--ink-800);
+    max-width: 60%;
+}
+
+.comment-time {
+    font-size: 20rpx;
+    color: var(--ink-300);
+}
+
+.comment-text {
+    display: block;
+    margin-top: 6rpx;
+    font-size: var(--fs-base);
+    line-height: 1.65;
+    color: var(--ink-700);
+}
+
+.comment-ops {
+    margin-top: 10rpx;
+    display: flex;
+    gap: 28rpx;
+}
+
+.comment-op {
+    font-size: 21rpx;
+    color: var(--ink-400);
+}
+
+.danger {
+    color: var(--danger);
+}
+
+.reply {
+    margin-top: 12rpx;
+    padding: 14rpx 18rpx;
+    background: var(--surface-soft);
+    border-radius: var(--r-xs);
+    font-size: 24rpx;
+    line-height: 1.6;
+}
+
+.reply-name {
+    color: var(--brand-600);
+}
+
+.reply-text {
+    color: var(--ink-600);
+}
+
+.report-line {
+    margin-top: 16rpx;
+    padding-top: 18rpx;
+    border-top: 2rpx solid var(--line-soft);
+    text-align: center;
+    font-size: 21rpx;
+    color: var(--ink-300);
+}
+
+/* ---------- 底部栏 ---------- */
+
+.bar-act {
+    width: 88rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rpx;
+    color: var(--ink-400);
+}
+
+.bar-act-on {
+    color: var(--brand-600);
+}
+
+.bar-ico {
+    font-size: 30rpx;
+    line-height: 1.1;
+}
+
+.bar-text {
+    font-size: 19rpx;
+}
+
+.bar-input-wrap {
+    flex: 1;
+    min-width: 0;
+}
+
+.bar-input {
+    height: 72rpx;
+    padding: 0 26rpx;
+    background: var(--surface-soft);
+    border: 2rpx solid var(--line-soft);
+    border-radius: var(--r-pill);
+    font-size: 25rpx;
+}
+
+.bar-ph {
+    color: var(--ink-300);
+}
+
+.reply-bar {
+    display: flex;
+    align-items: center;
+    font-size: 21rpx;
+    color: var(--ink-400);
+    padding: 0 10rpx 6rpx;
+}
+
+.reply-cancel {
+    color: var(--brand-600);
+    margin-left: 12rpx;
+}
+
+.bar-send {
+    padding: 0 6rpx;
+    font-size: 26rpx;
+    color: var(--brand-600);
+    font-weight: 600;
+}
+
+.bar-send-disabled {
+    color: var(--ink-300);
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 20rpx;
+}
+
+.grid-cell {
+    width: calc(50% - 10rpx);
+}
+
+.state {
+    padding: 120rpx 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

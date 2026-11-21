@@ -1,0 +1,140 @@
+.page {
+    min-height: 100vh;
+    background: #f7f4ef;
+}
+
+.tabs {
+    white-space: nowrap;
+    padding: 20rpx 28rpx 16rpx;
+    background: #f7f4ef;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.tab {
+    display: inline-block;
+    margin-right: 18rpx;
+    padding: 10rpx 26rpx;
+    border-radius: 999rpx;
+    background: #ffffff;
+    color: #615d57;
+    font-size: 25rpx;
+    border: 2rpx solid #ede6dd;
+}
+
+.tab-active {
+    background: #ff6b35;
+    color: #ffffff;
+    border-color: #ff6b35;
+}
+
+.item {
+    display: flex;
+    gap: 18rpx;
+    padding: 20rpx;
+    background: #ffffff;
+    border-radius: 24rpx;
+    margin-bottom: 16rpx;
+}
+
+.item-cover {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 18rpx;
+    background: #f5f0e9;
+    flex-shrink: 0;
+}
+
+.item-cover-empty {
+    background: linear-gradient(135deg, #ffe3d2, #ffc8ab);
+}
+
+.item-body {
+    padding-top: 4rpx;
+}
+
+.item-title {
+    font-size: 29rpx;
+    font-weight: 600;
+}
+
+.item-meta {
+    margin-top: 10rpx;
+    display: flex;
+    align-items: center;
+    gap: 10rpx;
+    flex-wrap: wrap;
+}
+
+.status {
+    font-size: 21rpx;
+    padding: 3rpx 12rpx;
+    border-radius: 8rpx;
+}
+
+.s-pass {
+    background: #e8f6ee;
+    color: #2f9e69;
+}
+
+.s-review {
+    background: #fff6e5;
+    color: #c98a12;
+}
+
+.s-reject {
+    background: #fdecea;
+    color: #d9534f;
+}
+
+.s-draft {
+    background: #f1f0ee;
+    color: #7c766e;
+}
+
+.item-reason {
+    margin-top: 10rpx;
+    font-size: 22rpx;
+    color: #d9534f;
+    line-height: 1.5;
+}
+
+.item-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14rpx;
+    padding: 10rpx 18rpx;
+    border-radius: 999rpx;
+    background: #fff6f0;
+    border: 2rpx solid #ffd2b5;
+}
+
+.item-action-text {
+    font-size: 23rpx;
+    font-weight: 600;
+    color: #ef4e19;
+}
+
+.item-action-arrow {
+    font-size: 26rpx;
+    color: #ef4e19;
+}
+
+.item-action.is-disabled {
+    background: #f7f5f2;
+    border-color: #ede6dd;
+}
+
+.item-action.is-disabled .item-action-text {
+    color: #9c958c;
+    font-weight: 500;
+}
+
+.state {
+    padding: 120rpx 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

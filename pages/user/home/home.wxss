@@ -1,0 +1,101 @@
+@import "../../../styles/post.wxss";
+
+.page {
+    min-height: 100vh;
+    background: #f7f4ef;
+    padding-bottom: 40rpx;
+}
+
+.header {
+    padding: 40rpx 28rpx 90rpx;
+    background: linear-gradient(160deg, #fff3ea, #ffe2ce);
+    border-radius: 0 0 40rpx 40rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar-lg {
+    width: 128rpx;
+    height: 128rpx;
+    font-size: 44rpx;
+}
+
+.name {
+    margin-top: 16rpx;
+    font-size: 34rpx;
+    font-weight: 700;
+}
+
+.nums {
+    margin-top: 22rpx;
+    display: flex;
+    width: 100%;
+}
+
+.num-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.num {
+    font-size: 30rpx;
+    font-weight: 700;
+    color: #2b1d16;
+}
+
+.num-label {
+    margin-top: 2rpx;
+    font-size: 21rpx;
+    color: #9a7a68;
+}
+
+.follow {
+    margin-top: 24rpx;
+    width: 240rpx;
+}
+
+.container {
+    margin-top: -40rpx;
+}
+
+.tabs {
+    display: flex;
+    gap: 40rpx;
+    padding: 24rpx 6rpx 18rpx;
+}
+
+.tab {
+    font-size: 29rpx;
+    color: #7c766e;
+}
+
+.tab-active {
+    color: #1b1917;
+    font-weight: 700;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 20rpx;
+}
+
+.grid-cell {
+    width: 48.6%;
+}
+
+.state {
+    padding: 80rpx 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-title {
+    font-size: 29rpx;
+    font-weight: 700;
+}

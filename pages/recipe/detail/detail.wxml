@@ -1,0 +1,161 @@
+<view class="page page-with-bar">
+
+    <view class="state" wx:if="{{loading}}">
+        <view class="loading-dots">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+        </view>
+    </view>
+
+    <view class="state" wx:elif="{{error}}">
+        <text class="state-emoji">🥲</text>
+        <text class="state-text">{{error}}</text>
+    </view>
+
+    <block wx:elif="{{recipe}}">
+        <view class="cover-wrap">
+            <image wx:if="{{recipe.cover}}" class="cover" src="{{recipe.cover}}" mode="aspectFill" />
+            <view wx:else class="cover cover-empty"></view>
+            <view class="cover-shade"></view>
+        </view>
+
+        <view class="container body">
+
+            <view class="card head-card">
+                <view class="name">{{recipe.name}}</view>
+
+                <view class="meta-row">
+                    <text class="tag">{{recipe.cuisine}}</text>
+                    <text class="tag-plain">{{recipe.taste}}</text>
+                    <text class="tag-plain">{{recipe.difficulty}}</text>
+                    <text class="tag-plain">{{recipe.cost_time}} 分钟</text>
+                    <text class="tag-plain" wx:if="{{recipe.fit_takeaway}}">适合外卖</text>
+                    <text class="tag-plain" wx:if="{{recipe.fit_quick}}">快手</text>
+                </view>
+
+                <view class="summary" wx:if="{{recipe.summary}}">{{recipe.summary}}</view>
+
+                <view class="author-row">
+                    <view class="avatar avatar-sm">{{recipe.initial}}</view>
+                    <view class="flex1 author-info" hover-class="is-press" hover-stay-time="60" bindtap="goAuthor">
+                        <text class="author-name ellipsis">{{recipe.owner_name}}</text>
+                        <text class="author-sub">{{recipe.view_count}} 次浏览</text>
+                    </view>
+                    <view
+                        wx:if="{{recipe.owner_id !== 'official' && !isOwner}}"
+                        class="btn btn-sm {{isAuthor ? 'btn-plain' : 'btn-ghost'}} follow-btn"
+                        hover-class="is-press"
+                        bindtap="onFollow"
+                    >{{isAuthor ? '已关注' : '关注'}}</view>
+                </view>
+
+                <view class="quick-actions">
+                    <view class="quick" hover-class="is-press" hover-stay-time="60" bindtap="copyName">复制菜名</view>
+                    <view class="quick-line"></view>
+                    <view class="quick" hover-class="is-press" hover-stay-time="60" bindtap="addToShopping">加入买菜清单</view>
+                    <view class="quick-line"></view>
+                    <view class="quick" hover-class="is-press" hover-stay-time="60" bindtap="share">分享</view>
+                </view>
+            </view>
+
+            <view class="card section" wx:if="{{recipe.materials.length}}">
+                <view class="section-head">
+                    <text class="section-title">食材</text>
+                    <text class="section-more">{{recipe.materials.length}} 项</text>
+                </view>
+                <view class="material" wx:for="{{recipe.materials}}" wx:key="name">
+                    <view class="material-dot"></view>
+                    <text class="material-name flex1 ellipsis">{{item.name}}</text>
+                    <text class="material-dosage">{{item.dosage}}</text>
+                </view>
+            </view>
+
+            <view class="card section" wx:if="{{recipe.steps.length}}">
+                <view class="section-head">
+                    <text class="section-title">做法</text>
+                    <text class="section-more">{{recipe.steps.length}} 步</text>
+                </view>
+                <view class="step" wx:for="{{recipe.steps}}" wx:key="sort">
+                    <view class="step-rail">
+                        <view class="step-index">{{item.sort}}</view>
+                        <view class="step-line" wx:if="{{index < recipe.steps.length - 1}}"></view>
+                    </view>
+                    <view class="step-body">
+                        <text class="step-text">{{item.content}}</text>
+                        <image wx:if="{{item.image}}" class="step-image" src="{{item.image}}" mode="widthFix" lazy-load />
+                    </view>
+                </view>
+            </view>
+
+            <view class="card section">
+                <view class="section-head">
+                    <text class="section-title">评论 {{comments.length}}</text>
+                    <text class="section-more" hover-class="is-press" bindtap="goCheckin">晒成品打卡 ›</text>
+                </view>
+
+                <view class="comment-empty" wx:if="{{!comments.length}}">还没有人说话，来讲两句</view>
+
+                <view class="comment" wx:for="{{comments}}" wx:key="id">
+                    <view class="avatar avatar-sm">{{item.initial}}</view>
+                    <view class="comment-body">
+                        <view class="comment-top">
+                            <text class="comment-name ellipsis">{{item.owner_name}}</text>
+                            <text class="comment-time">{{item.timeText}}</text>
+                        </view>
+                        <text class="comment-text">{{item.content}}</text>
+                        <view class="comment-ops">
+                            <text class="comment-op" data-id="{{item.id}}" data-name="{{item.owner_name}}" bindtap="replyComment">回复</text>
+                            <text wx:if="{{item.isOwner}}" class="comment-op danger" data-id="{{item.id}}" bindtap="removeComment">删除</text>
+                            <text wx:else class="comment-op" data-id="{{item.id}}" bindtap="reportComment">举报</text>
+                        </view>
+
+                        <view class="reply" wx:for="{{item.children}}" wx:for-item="reply" wx:key="id">
+                            <text class="reply-name">{{reply.owner_name}}：</text>
+                            <text class="reply-text">{{reply.content}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="report-line" wx:if="{{!isOwner}}" hover-class="is-press" bindtap="onReport">内容有问题？举报该菜谱</view>
+            </view>
+
+            <view class="section" wx:if="{{related.length}}">
+                <view class="section-head">
+                    <text class="section-title">同类菜谱</text>
+                </view>
+                <view class="grid">
+                    <view class="grid-cell" wx:for="{{related}}" wx:key="id">
+                        <recipe-card item="{{item}}" mode="grid" />
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+
+    <view class="bottom-bar" wx:if="{{recipe}}">
+        <view class="bar-act {{recipe.collected ? 'bar-act-on' : ''}}" hover-class="is-press" bindtap="onCollect">
+            <text class="bar-ico">★</text>
+            <text class="bar-text">{{recipe.collected ? '已收藏' : '收藏'}}</text>
+        </view>
+        <view class="bar-act {{recipe.liked ? 'bar-act-on' : ''}}" hover-class="is-press" bindtap="onLike">
+            <text class="bar-ico">♥</text>
+            <text class="bar-text">{{recipe.like_count}}</text>
+        </view>
+        <view class="bar-input-wrap">
+            <view class="reply-bar" wx:if="{{replyTo}}">
+                <text class="flex1 ellipsis">回复 {{replyTo.name}}</text>
+                <text class="reply-cancel" bindtap="cancelReply">取消</text>
+            </view>
+            <input
+                class="bar-input"
+                value="{{commentText}}"
+                placeholder="{{replyTo ? '回复 ' + replyTo.name : '说点什么…'}}"
+                placeholder-class="bar-ph"
+                bindinput="onCommentInput"
+                bindconfirm="submitComment"
+                confirm-type="send"
+            />
+        </view>
+        <view class="bar-send {{submitting ? 'bar-send-disabled' : ''}}" bindtap="submitComment">发送</view>
+    </view>
+</view>

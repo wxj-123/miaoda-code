@@ -1,0 +1,236 @@
+.top {
+    padding-top: 28rpx;
+}
+
+.post-top {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+}
+
+.post-author {
+    display: block;
+    font-size: 28rpx;
+    font-weight: 600;
+}
+
+.post-badge {
+    padding: 4rpx 16rpx;
+    border-radius: 999rpx;
+    background: #fff1e8;
+    color: #ef4e19;
+    font-size: 21rpx;
+}
+
+.title {
+    margin-top: 24rpx;
+    font-size: 40rpx;
+    font-weight: 800;
+    line-height: 1.38;
+}
+
+.content {
+    margin-top: 16rpx;
+    font-size: 29rpx;
+    line-height: 1.78;
+    color: #46433e;
+    white-space: pre-wrap;
+}
+
+.media {
+    margin-top: 22rpx;
+}
+
+.media-img {
+    width: 100%;
+    margin-bottom: 14rpx;
+    border-radius: 20rpx;
+    background: #f4f0ec;
+}
+
+.media-video {
+    width: 100%;
+    height: 420rpx;
+    margin-bottom: 14rpx;
+    border-radius: 20rpx;
+    background: #000000;
+}
+
+.report-mini {
+    margin-left: auto;
+    color: #9c958c;
+}
+
+.post-recipe {
+    margin-top: 18rpx;
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+    padding: 16rpx 18rpx;
+    background: #ffffff;
+    border-radius: 20rpx;
+}
+
+.recipe-cover {
+    width: 110rpx;
+    height: 110rpx;
+    border-radius: 16rpx;
+    background: #f4f0ec;
+}
+
+.recipe-name {
+    display: block;
+    font-size: 27rpx;
+    font-weight: 600;
+    margin-bottom: 4rpx;
+}
+
+.recipe-arrow {
+    font-size: 34rpx;
+    color: #c0b9af;
+}
+
+.counts {
+    margin-top: 22rpx;
+    display: flex;
+    gap: 28rpx;
+    font-size: 23rpx;
+    color: #9c958c;
+}
+
+.comment-empty {
+    padding: 30rpx 0;
+    text-align: center;
+    font-size: 25rpx;
+    color: #9c958c;
+}
+
+.comment {
+    display: flex;
+    gap: 16rpx;
+    padding: 20rpx 0;
+    border-bottom: 2rpx solid #f2eee9;
+}
+
+.comment-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.comment-top {
+    display: flex;
+    align-items: baseline;
+    gap: 14rpx;
+}
+
+.comment-name {
+    font-size: 25rpx;
+    font-weight: 600;
+}
+
+.comment-time {
+    font-size: 21rpx;
+    color: #9c958c;
+}
+
+.comment-text {
+    display: block;
+    margin-top: 6rpx;
+    font-size: 27rpx;
+    line-height: 1.6;
+    color: #46433e;
+}
+
+.comment-ops {
+    margin-top: 8rpx;
+    display: flex;
+    gap: 26rpx;
+    font-size: 22rpx;
+    color: #9c958c;
+}
+
+.danger {
+    color: #d9534f;
+}
+
+.reply {
+    margin-top: 12rpx;
+    padding: 14rpx 18rpx;
+    background: #faf7f4;
+    border-radius: 14rpx;
+    font-size: 25rpx;
+    line-height: 1.55;
+}
+
+.reply-name {
+    color: #ef4e19;
+}
+
+.reply-text {
+    color: #46433e;
+}
+
+.bar-act {
+    width: 92rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #7c766e;
+}
+
+.bar-act-on {
+    color: #ef4e19;
+}
+
+.bar-ico {
+    font-size: 30rpx;
+    line-height: 1.1;
+}
+
+.bar-text {
+    font-size: 20rpx;
+}
+
+.bar-input-wrap {
+    flex: 1;
+    min-width: 0;
+}
+
+.bar-input {
+    height: 72rpx;
+    padding: 0 24rpx;
+    background: #fbf9f6;
+    border-radius: 999rpx;
+    font-size: 26rpx;
+}
+
+.bar-ph {
+    color: #9c958c;
+}
+
+.reply-bar {
+    display: flex;
+    align-items: center;
+    font-size: 22rpx;
+    color: #7c766e;
+    padding: 0 8rpx 6rpx;
+}
+
+.reply-cancel {
+    color: #ef4e19;
+    margin-left: 12rpx;
+}
+
+.bar-send {
+    padding: 0 8rpx;
+    font-size: 27rpx;
+    color: #ef4e19;
+    font-weight: 600;
+}
+
+.state {
+    padding: 120rpx 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

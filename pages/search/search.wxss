@@ -1,0 +1,147 @@
+@import "../../styles/post.wxss";
+
+.page {
+    min-height: 100vh;
+    background: var(--bg);
+}
+
+/* ---------- 搜索条 ---------- */
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+    padding: 18rpx 28rpx;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.search-input-wrap {
+    flex: 1;
+    height: 80rpx;
+    display: flex;
+    align-items: center;
+    padding: 0 26rpx;
+    background: var(--surface);
+    border: 2rpx solid var(--line);
+    border-radius: var(--r-pill);
+}
+
+.search-ico {
+    width: 24rpx;
+    height: 24rpx;
+    border: 3rpx solid var(--ink-300);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    margin-right: 18rpx;
+}
+
+.search-ico::after {
+    content: "";
+    position: absolute;
+    right: -8rpx;
+    bottom: -4rpx;
+    width: 11rpx;
+    height: 3rpx;
+    border-radius: 3rpx;
+    background: var(--ink-300);
+    transform: rotate(45deg);
+}
+
+.search-input {
+    flex: 1;
+    font-size: var(--fs-base);
+    color: var(--ink-900);
+}
+
+.search-ph {
+    color: var(--ink-300);
+}
+
+.search-action {
+    flex-shrink: 0;
+    font-size: var(--fs-base);
+    font-weight: 600;
+    color: var(--brand-600);
+    padding: 8rpx 4rpx;
+}
+
+/* ---------- 词块 ---------- */
+
+.block {
+    margin-top: 36rpx;
+}
+
+.block-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20rpx;
+}
+
+.block-title {
+    font-size: 26rpx;
+    font-weight: 700;
+    color: var(--ink-800);
+}
+
+.block-action {
+    font-size: 22rpx;
+    color: var(--ink-400);
+}
+
+.word-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14rpx;
+}
+
+.chip-hot {
+    background: var(--brand-50);
+    border-color: transparent;
+    color: var(--brand-600);
+}
+
+/* ---------- 分段 ---------- */
+
+.seg {
+    display: inline-flex;
+    padding: 5rpx;
+    margin: 10rpx 0 22rpx;
+    background: #ece6dd;
+    border-radius: var(--r-pill);
+}
+
+.seg-item {
+    padding: 0 32rpx;
+    height: 58rpx;
+    line-height: 58rpx;
+    border-radius: var(--r-pill);
+    font-size: var(--fs-base);
+    color: var(--ink-500);
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.seg-on {
+    background: #ffffff;
+    color: var(--ink-900);
+    font-weight: 700;
+    box-shadow: 0 4rpx 12rpx rgba(70, 45, 25, 0.1);
+}
+
+.row-card {
+    margin-bottom: 18rpx;
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+}
+
+.state {
+    padding: 100rpx 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

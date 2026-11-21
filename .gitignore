@@ -1,0 +1,28 @@
+# Windows
+[Dd]esktop.ini
+Thumbs.db
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+
+# Node.js
+node_modules/
+
+# 本地工作记录与应用元数据（不入库）
+.workbuddy/
+.wbapp_*.genie
+.wbapp_*.privacy.json
+
+# 管理后台：本地依赖、日志、上传与数据库
+admin/server/.venv/
+admin/server/__pycache__/
+admin/server/logs/
+admin/server/uploads/
+admin/server/*.db
+admin/web/node_modules/
+admin/web/dist/

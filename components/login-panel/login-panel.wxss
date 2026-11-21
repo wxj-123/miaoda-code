@@ -1,0 +1,99 @@
+.login {
+    padding: 40rpx 34rpx 36rpx;
+    background: var(--surface, #ffffff);
+    border-radius: var(--r-lg, 28rpx);
+    box-shadow: var(--sh-3, 0 18rpx 46rpx rgba(70, 45, 25, 0.11));
+}
+
+.login-title {
+    display: block;
+    font-size: var(--fs-xl, 36rpx);
+    font-weight: 700;
+    letter-spacing: 1rpx;
+    color: var(--ink-900, #1b1917);
+}
+
+.login-desc {
+    display: block;
+    margin-top: 12rpx;
+    font-size: 24rpx;
+    line-height: 1.6;
+    color: var(--ink-400, #9c958c);
+}
+
+.login-input {
+    height: 84rpx;
+    padding: 0 26rpx;
+    margin-top: 28rpx;
+    font-size: 27rpx;
+    color: var(--ink-900, #1b1917);
+    background: var(--surface-soft, #fbf9f6);
+    border: 2rpx solid var(--line, #ede6dd);
+    border-radius: var(--r-md, 22rpx);
+}
+
+.login-placeholder {
+    color: var(--ink-300, #c0b9af);
+}
+
+.login-row {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+}
+
+.login-code {
+    flex: 1;
+    margin-top: 18rpx;
+}
+
+.login-send {
+    flex-shrink: 0;
+    margin-top: 18rpx;
+    padding: 0 22rpx;
+    height: 84rpx;
+    line-height: 84rpx;
+    font-size: 24rpx;
+    font-weight: 500;
+    color: var(--brand-600, #ef4e19);
+    background: var(--brand-50, #fff6f0);
+    border-radius: var(--r-md, 22rpx);
+}
+
+.login-send-disabled {
+    color: var(--ink-300, #c0b9af);
+    background: var(--surface-soft, #fbf9f6);
+}
+
+.login-button {
+    margin-top: 30rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    font-size: 30rpx;
+    font-weight: 600;
+    letter-spacing: 1rpx;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ff8b54, #ef4e19);
+    border-radius: var(--r-pill, 999rpx);
+    box-shadow: 0 14rpx 30rpx rgba(239, 78, 25, 0.26);
+}
+
+.login-button::after {
+    border: none;
+}
+
+.login-tip {
+    display: block;
+    margin-top: 22rpx;
+    font-size: 22rpx;
+    line-height: 1.6;
+    color: var(--ok, #2e9e6b);
+}
+
+.login-error {
+    display: block;
+    margin-top: 22rpx;
+    font-size: 22rpx;
+    line-height: 1.6;
+    color: var(--danger, #d9483b);
+}

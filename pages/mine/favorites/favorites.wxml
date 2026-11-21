@@ -1,0 +1,39 @@
+<view class="page">
+    <view class="container">
+        <view class="state" wx:if="{{loading}}">
+            <view class="loading-dots">
+                <view class="dot"></view>
+                <view class="dot"></view>
+                <view class="dot"></view>
+            </view>
+        </view>
+
+        <block wx:elif="{{list.length}}">
+            <view
+                class="item"
+                wx:for="{{list}}"
+                wx:key="id"
+                data-id="{{item.id}}"
+                data-kind="{{item.kind}}"
+                bindtap="goDetail"
+            >
+                <image wx:if="{{item.cover}}" class="cover" src="{{item.cover}}" mode="aspectFill" lazy-load />
+                <view wx:else class="cover cover-empty"></view>
+                <view class="flex1 body">
+                    <view class="title ellipsis">{{item.name || item.title}}</view>
+                    <view class="meta">
+                        <text class="tag-plain">{{item.kindText}}</text>
+                        <text class="muted">{{item.timeText}}</text>
+                    </view>
+                    <view class="sub ellipsis-2" wx:if="{{item.summary || item.content}}">{{item.summary || item.content}}</view>
+                </view>
+            </view>
+        </block>
+
+        <view class="state" wx:else>
+            <text class="state-emoji">★</text>
+            <text class="state-text">还没有收藏，去首页逛逛</text>
+            <button class="btn btn-ghost btn-sm act" bindtap="goHome">去首页</button>
+        </view>
+    </view>
+</view>

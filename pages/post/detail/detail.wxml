@@ -1,0 +1,123 @@
+<view class="page page-with-bar">
+
+    <view class="state" wx:if="{{loading}}">
+        <view class="loading-dots">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+        </view>
+    </view>
+
+    <view class="state" wx:elif="{{error}}">
+        <text class="state-emoji">🥲</text>
+        <text class="state-text">{{error}}</text>
+    </view>
+
+    <block wx:elif="{{post}}">
+        <view class="container top">
+            <view class="post-top">
+                <view class="avatar" data-uid="{{post.owner_id}}" bindtap="goAuthor">{{post.initial}}</view>
+                <view class="flex1" data-uid="{{post.owner_id}}" bindtap="goAuthor">
+                    <text class="post-author">{{post.owner_name}}</text>
+                    <text class="muted">{{post.timeText}}</text>
+                </view>
+                <text class="post-badge" wx:if="{{post.isCheckin}}">打卡</text>
+            </view>
+
+            <view class="title">{{post.title}}</view>
+            <view class="content" wx:if="{{post.content}}">{{post.content}}</view>
+
+            <view class="media" wx:if="{{post.video || post.media.length}}">
+                <video
+                    wx:if="{{post.video}}"
+                    class="media-video"
+                    src="{{post.video}}"
+                    controls
+                    object-fit="cover"
+                    show-center-play-btn
+                ></video>
+                <image
+                    wx:for="{{post.media}}"
+                    wx:key="*this"
+                    class="media-img"
+                    src="{{item}}"
+                    mode="widthFix"
+                    data-src="{{item}}"
+                    bindtap="previewImage"
+                    lazy-load
+                />
+            </view>
+
+            <view class="post-recipe" wx:if="{{post.recipe}}" bindtap="goRecipe">
+                <image wx:if="{{post.recipe.cover}}" class="recipe-cover" src="{{post.recipe.cover}}" mode="aspectFill" />
+                <view class="flex1">
+                    <text class="recipe-name">{{post.recipe.name}}</text>
+                    <text class="muted">{{post.recipe.cuisine}} · {{post.recipe.cost_time}}分钟 · {{post.recipe.difficulty}}</text>
+                </view>
+                <text class="recipe-arrow">›</text>
+            </view>
+
+            <view class="counts">
+                <text>{{post.view_count}} 次浏览</text>
+                <text>♥ {{post.like_count}}</text>
+                <text>★ {{post.collect_count}}</text>
+                <text class="report-mini" wx:if="{{!post.isOwner}}" bindtap="onReport">举报</text>
+            </view>
+
+            <view class="divider"></view>
+
+            <view class="section-head">
+                <text class="section-title">评论 {{comments.length}}</text>
+            </view>
+
+            <view class="comment-empty" wx:if="{{!comments.length}}">还没有人说话，来讲两句</view>
+
+            <view class="comment" wx:for="{{comments}}" wx:key="id">
+                <view class="avatar avatar-sm">{{item.initial}}</view>
+                <view class="comment-body">
+                    <view class="comment-top">
+                        <text class="comment-name">{{item.owner_name}}</text>
+                        <text class="comment-time">{{item.timeText}}</text>
+                    </view>
+                    <text class="comment-text">{{item.content}}</text>
+                    <view class="comment-ops">
+                        <text data-id="{{item.id}}" data-name="{{item.owner_name}}" bindtap="replyComment">回复</text>
+                        <text wx:if="{{item.isOwner}}" class="danger" data-id="{{item.id}}" bindtap="removeComment">删除</text>
+                        <text wx:else data-id="{{item.id}}" bindtap="reportComment">举报</text>
+                    </view>
+                    <view class="reply" wx:for="{{item.children}}" wx:for-item="reply" wx:key="id">
+                        <text class="reply-name">{{reply.owner_name}}：</text>
+                        <text class="reply-text">{{reply.content}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+
+    <view class="bottom-bar" wx:if="{{post}}">
+        <view class="bar-act {{post.collected ? 'bar-act-on' : ''}}" bindtap="onCollect">
+            <text class="bar-ico">★</text>
+            <text class="bar-text">{{post.collected ? '已收藏' : '收藏'}}</text>
+        </view>
+        <view class="bar-act {{post.liked ? 'bar-act-on' : ''}}" bindtap="onLike">
+            <text class="bar-ico">♥</text>
+            <text class="bar-text">{{post.like_count}}</text>
+        </view>
+        <view class="bar-input-wrap">
+            <view class="reply-bar" wx:if="{{replyTo}}">
+                <text class="flex1">回复 {{replyTo.name}}</text>
+                <text class="reply-cancel" bindtap="cancelReply">取消</text>
+            </view>
+            <input
+                class="bar-input"
+                value="{{commentText}}"
+                placeholder="{{replyTo ? '回复 ' + replyTo.name : '说点什么…'}}"
+                placeholder-class="bar-ph"
+                bindinput="onCommentInput"
+                bindconfirm="submitComment"
+                confirm-type="send"
+            />
+        </view>
+        <view class="bar-send" bindtap="submitComment">发送</view>
+    </view>
+</view>

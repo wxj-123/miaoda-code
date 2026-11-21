@@ -1,0 +1,104 @@
+<view class="page">
+
+    <view class="state" wx:if="{{authState === 'checking'}}">
+        <view class="loading-dots">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+        </view>
+    </view>
+
+    <block wx:elif="{{authState === 'signed-out'}}">
+        <view class="header header-guest">
+            <view class="header-glow"></view>
+            <view class="header-title">我的</view>
+            <view class="header-sub">登录后可以投稿、收藏和晒成品</view>
+        </view>
+        <view class="container container-guest">
+            <login-panel bind:signedin="onSignedIn" />
+        </view>
+    </block>
+
+    <block wx:else>
+        <view class="header">
+            <view class="header-glow"></view>
+
+            <view class="profile">
+                <view class="avatar avatar-lg avatar-ring">{{displayInitial}}</view>
+                <view class="flex1">
+                    <view class="profile-name ellipsis">{{displayName}}</view>
+                    <view class="profile-sub">今天也要好好吃饭</view>
+                </view>
+            </view>
+
+            <view class="stats">
+                <view class="stat">
+                    <text class="stat-num num">{{stats.works}}</text>
+                    <text class="stat-label">作品</text>
+                </view>
+                <view class="stat-divide"></view>
+                <view class="stat">
+                    <text class="stat-num num">{{stats.favorites}}</text>
+                    <text class="stat-label">收藏</text>
+                </view>
+                <view class="stat-divide"></view>
+                <view class="stat">
+                    <text class="stat-num num">{{stats.fans}}</text>
+                    <text class="stat-label">粉丝</text>
+                </view>
+            </view>
+        </view>
+
+        <view class="container">
+            <view class="creator-card">
+                <view class="creator-head">
+                    <text class="creator-title">创作者数据</text>
+                    <text class="creator-tag">累计</text>
+                </view>
+                <view class="creator-row">
+                    <view class="creator-item">
+                        <text class="creator-num num">{{creator.view}}</text>
+                        <text class="creator-label">作品浏览</text>
+                    </view>
+                    <view class="creator-divide"></view>
+                    <view class="creator-item">
+                        <text class="creator-num num">{{creator.collect}}</text>
+                        <text class="creator-label">被收藏</text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="menu">
+                <view class="menu-item" hover-class="menu-press" hover-stay-time="60" data-path="/pages/mine/contents/contents" bindtap="goPage">
+                    <view class="menu-ico ico-doc"></view>
+                    <text class="menu-label flex1">我的发布</text>
+                    <view class="menu-arrow"></view>
+                </view>
+                <view class="menu-item" hover-class="menu-press" hover-stay-time="60" data-path="/pages/mine/favorites/favorites" bindtap="goPage">
+                    <view class="menu-ico ico-star"></view>
+                    <text class="menu-label flex1">我的收藏</text>
+                    <view class="menu-arrow"></view>
+                </view>
+                <view class="menu-item" hover-class="menu-press" hover-stay-time="60" data-path="/pages/shopping/shopping" bindtap="goPage">
+                    <view class="menu-ico ico-basket"></view>
+                    <text class="menu-label flex1">买菜清单</text>
+                    <view class="menu-arrow"></view>
+                </view>
+                <view class="menu-item" wx:if="{{isAdmin}}" hover-class="menu-press" hover-stay-time="60" data-path="/pages/admin/console/console" bindtap="goPage">
+                    <view class="menu-ico ico-shield"></view>
+                    <text class="menu-label flex1">管理台</text>
+                    <text class="tag">审核员</text>
+                    <view class="menu-arrow"></view>
+                </view>
+                <view class="menu-item" hover-class="menu-press" hover-stay-time="60" data-path="/pages/about/about" bindtap="goPage">
+                    <view class="menu-ico ico-info"></view>
+                    <text class="menu-label flex1">关于与协议</text>
+                    <view class="menu-arrow"></view>
+                </view>
+            </view>
+
+            <view class="logout" hover-class="is-press" hover-stay-time="60" bindtap="signOut">退出登录</view>
+            <view class="version">今天吃什么 · 好好吃饭版</view>
+        </view>
+    </block>
+</view>
